@@ -1,0 +1,12 @@
+require 'bundler/vendored_thor'
+
+class CX < Thor
+
+  desc 'version', 'displays the current version of Cruxus'
+  def version
+    puts '0.0.0'
+  end
+
+end
+
+CX.start(ARGV)
