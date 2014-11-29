@@ -1,12 +1,6 @@
-require 'bundler/vendored_thor'
+#!/usr/bin/env ruby
+require "./cruxus"
 
-class CX < Thor
+extend Cx
 
-  desc 'version', 'displays the current version of Cruxus'
-  def version
-    puts '0.0.0'
-  end
-
-end
-
-CX.start(ARGV)
+Cx::Cruxus.start(ARGV)

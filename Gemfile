@@ -1,7 +1,11 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-gem 'thor', '~> 0.19.1'
-gem 'confstruct'
-gem 'env'
+gem "rake"
+gem "thor"
+gem "confstruct"
+gem "env"
+gem "require_all"
+gem "os"
+gem "rspec"
 
 gemspec

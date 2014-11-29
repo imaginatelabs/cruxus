@@ -30,3 +30,31 @@ Configuration is in Yaml format.
         provider:"git"
         
 ```
+
+
+## Extending 
+What you need to implement
++ \<module-name\>
+|
++--- \<module-name\>.rb
+
+
+
+File: \<module-name\>.rb
+```ruby
+module <module-name>Workflow
+
+  class <module-name> < Thor
+
+    def self.help_desc
+      'Your description goes here'
+    end
+
+    desc 'foo', 'describes foo command'
+    def foo
+      ...
+    end
+  end
+end
+
+```
