@@ -8,5 +8,4 @@ class CxPluginBase < Thor
   def self.help
     @help_desc
   end
-
 end

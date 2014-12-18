@@ -9,6 +9,5 @@ module WiWorkflow
     def new
       puts("I'm in your work item")
     end
-
   end
 end

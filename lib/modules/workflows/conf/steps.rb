@@ -3,13 +3,12 @@ require_relative "../../../core/cxconf"
 module ConfWorkflow
 
   class Steps
-
     def initialize(conf = CxConf)
       @conf = conf
     end
 
     def select(query)
-      query == '*' ? @conf.to_hash : recursive_search(query, @conf.to_hash)
+      query == "*" ? @conf.to_hash : recursive_search(query, @conf.to_hash)
     end
 
     def key(hkey)
@@ -30,6 +29,5 @@ module ConfWorkflow
       end
       result.delete_if {|k,v| v == {}}
     end
-
   end
 end

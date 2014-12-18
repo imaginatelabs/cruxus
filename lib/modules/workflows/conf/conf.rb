@@ -15,6 +15,5 @@ module ConfWorkflow
     def key(key)
       puts(ConfWorkflow::Steps.new.key(key))
     end
-
   end
 end

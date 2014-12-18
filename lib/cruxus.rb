@@ -27,6 +27,5 @@ module Cx
       eval("desc '#{name} [COMMAND] [ARGS]', '#{help_desc}'")
       eval("subcommand '#{name}', #{name.capitalize}Workflow::#{name.capitalize}")
     end
-    
   end
 end
