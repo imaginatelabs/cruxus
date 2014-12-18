@@ -1,18 +1,14 @@
-require 'bundler/vendored_thor'
+require_relative "../../../core/cx_plugin_base"
 
 module WiWorkflow
 
-  class Wi < Thor
+  class Wi < CxPluginBase
+    help_desc "Manage CX Work Items"
 
-    def self.help_desc
-      'Manage CX Work Items'
-    end
-
-    desc 'new', 'Create new work item'
+    desc "new", "Create new work item"
     def new
       puts("I'm in your work item")
     end
 
   end
-
 end

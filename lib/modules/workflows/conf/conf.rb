@@ -1,13 +1,10 @@
-require "bundler/vendored_thor"
+require_relative "../../../core/cx_plugin_base"
 require_relative "./steps"
 
 module ConfWorkflow
 
-  class Conf < Thor
-
-    def self.help_desc
-      "Manage CX configuration"
-    end
+  class Conf < CxPluginBase
+    help_desc "Manage CX configuration"
 
     desc "select [REGEX]", "Returns any keys and values that match the regular expression"
     def select(regex="")

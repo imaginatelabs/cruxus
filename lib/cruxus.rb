@@ -23,10 +23,10 @@ module Cx
     end
     workflows.flatten.each do |name|
       eval("extend #{name.capitalize}Workflow")
-      help_desc = eval("#{name.capitalize}Workflow::#{name.capitalize}.help_desc")
+      help_desc = eval("#{name.capitalize}Workflow::#{name.capitalize}.help")
       eval("desc '#{name} [COMMAND] [ARGS]', '#{help_desc}'")
       eval("subcommand '#{name}', #{name.capitalize}Workflow::#{name.capitalize}")
     end
-
+    
   end
 end
