@@ -4,8 +4,8 @@ require_relative "core/conf_utils"
 require_relative "core/cxconf"
 
 module Cx
-  # Require all CxWorkflows from CxModule directories
-  CxConf.get_cxconf_paths("modules/workflows/").each {|dir|
+  # Require all CxWorkflows from plugins directories
+  CxConf.get_cxconf_paths("plugins/workflows/").each {|dir|
     require_all dir if Dir.exist? dir
   }
 
@@ -16,9 +16,9 @@ module Cx
       puts(CxConf.version)
     end
 
-    # Load CxModules from CxModule directories
+    # Load CxPlugins from plugins directories
     workflows = Array.new
-    CxConf.get_cxconf_paths("modules/workflows/").each do |dir|
+    CxConf.get_cxconf_paths("plugins/workflows/").each do |dir|
       workflows << Dir.entries(dir).select {|f| f != "." && f != ".."} if Dir.exist?(dir)
     end
     workflows.flatten.each do |name|

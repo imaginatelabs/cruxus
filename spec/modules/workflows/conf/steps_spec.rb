@@ -1,6 +1,6 @@
 require "confstruct"
 require "rspec"
-require "./lib/modules/workflows/conf/steps"
+require "./lib/plugins/workflows/conf/steps"
 
 include Confstruct
 
