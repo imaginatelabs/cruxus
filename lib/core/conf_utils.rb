@@ -2,6 +2,7 @@ require "yaml"
 require "confstruct"
 require "env"
 require "os"
+require_relative "plugin_file"
 
 module ConfUtils
 
@@ -15,7 +16,7 @@ module ConfUtils
     config
   end
 
-  # Will return true even for Cygwin and GitBash
+  # Will return true for windows even for Cygwin and GitBash
   def get_shared_dir
     OS::Underlying.windows? ? Env["ALLUSERSPROFILE"] : "/etc"
   end
@@ -30,6 +31,24 @@ module ConfUtils
 
   def get_working_dir
     File.absolute_path(Dir.pwd + "/../")
+  end
+
+  def plugins(type)
+    plugin_files(type, "plugins/#{type}s/","**/*#{type}.rb")
+  end
+
+  def plugin_files(type, dirname, glob="**/*")
+    plugins = Array.new
+    files(dirname, glob).each { |file| plugins << PluginFile.new(file, type) }
+    plugins
+  end
+
+  def files(dirname, glob="**/*")
+    files = Array.new
+    get_cxconf_paths(dirname).each do |dir|
+      files << Dir.glob("#{dir}#{glob}").select {|f| File.file?(f)} if Dir.exist?(dir)
+    end
+    files.flatten.map{ |f| File.absolute_path(f) }
   end
 
   def get_cxconf_paths(path = "")

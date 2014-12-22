@@ -1,31 +1,20 @@
 require "bundler/vendored_thor"
-require "require_all"
 require_relative "core/conf_utils"
 require_relative "core/cxconf"
 
 module Cx
-  # Require all CxWorkflows from plugins directories
-  CxConf.get_cxconf_paths("plugins/workflows/").each {|dir|
-    require_all dir if Dir.exist? dir
-  }
 
   class Cruxus < Thor
-
     desc "version", "Displays the current version of Cruxus"
     def version
       puts(CxConf.version)
     end
 
-    # Load CxPlugins from plugins directories
-    workflows = Array.new
-    CxConf.get_cxconf_paths("plugins/workflows/").each do |dir|
-      workflows << Dir.entries(dir).select {|f| f != "." && f != ".."} if Dir.exist?(dir)
-    end
-    workflows.flatten.each do |name|
-      eval("extend #{name.capitalize}Workflow")
-      help_desc = eval("#{name.capitalize}Workflow::#{name.capitalize}.help")
-      eval("desc '#{name} [COMMAND] [ARGS]', '#{help_desc}'")
-      eval("subcommand '#{name}', #{name.capitalize}Workflow::#{name.capitalize}")
+    CxConf.plugins("workflow").each do |plugin_file|
+      require plugin_file.absolute_path
+      eval("extend #{plugin_file.plugin_name}")
+      eval("desc '#{plugin_file.instance_name.downcase} [COMMAND] [ARGS]', '#{eval("#{plugin_file.module_class_name}.help_text")}'")
+      eval("subcommand '#{plugin_file.instance_name.downcase}', #{plugin_file.module_class_name}")
     end
   end
 end

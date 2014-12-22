@@ -5,7 +5,7 @@ class CxPluginBase < Thor
     @help_desc= help_desc
   end
 
-  def self.help
+  def self.help_text
     @help_desc
   end
 end
