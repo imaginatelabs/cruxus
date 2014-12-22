@@ -4,8 +4,8 @@ gem "rake"
 gem "thor"
 gem "confstruct"
 gem "env"
-gem "require_all"
 gem "os"
 gem "rspec"
+gem "rspec_junit_formatter"
 
 gemspec

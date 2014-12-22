@@ -5,7 +5,6 @@
 # You can mock this class out simply by using an
 # instance of Confstruct:Configuration
 #
-require "require_all"
 require "confstruct"
 require "singleton"
 require_relative "./conf_utils"
