@@ -5,7 +5,11 @@ gem "thor"
 gem "confstruct"
 gem "env"
 gem "os"
-gem "rspec"
-gem "rspec_junit_formatter"
+
+group :test do
+  gem "rspec"
+  gem "rspec_junit_formatter"
+  gem "rubocop"
+end
 
 gemspec
