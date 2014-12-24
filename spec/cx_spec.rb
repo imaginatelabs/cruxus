@@ -14,7 +14,9 @@ describe Cx::Cruxus do
 
     context "with no command line args" do
       let(:help_command) { "help [COMMAND]" }
-      let(:help_desc) { "# Describe available commands or one specific command" }
+      let(:help_desc) do
+        "# Describe available commands or one specific command"
+      end
       let(:version_command) { "version" }
       let(:version_desc) { "# Displays the current version of Cruxus" }
 

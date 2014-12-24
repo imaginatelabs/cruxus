@@ -1,5 +1,6 @@
 require_relative "conf_utils"
 
+# Represents the
 class PluginFile
   attr_reader :absolute_path, :plugin_type
 
@@ -8,12 +9,8 @@ class PluginFile
     @plugin_type = plugin_type
   end
 
-  def absolute_path
-    @absolute_path
-  end
-
   def instance_name
-    plugin_name.gsub(plugin_type.capitalize,"")
+    plugin_name.gsub(plugin_type.capitalize, "")
   end
 
   def plugin_name
@@ -26,12 +23,13 @@ class PluginFile
 
   private
 
-  def camelize(string, uppercase_first_letter = true)
+  def camelize(str, uppercase_first_letter = true)
     if uppercase_first_letter
-      string = string.sub(/^[a-z\d]*/) { $&.capitalize }
+      str = str.sub(/^[a-z\d]*/) { $&.capitalize }
     else
-      string = string.sub(/^(?:(?=\b|[A-Z_])|\w)/) { $&.downcase }
+      str = str.sub(/^(?:(?=\b|[A-Z_])|\w)/) { $&.downcase }
     end
-    string.gsub(/(?:_|(\/))([a-z\d]*)/) { "#{$1}#{$2.capitalize}" }.gsub('/', '::')
+    regex = /(?:_|(\/))([a-z\d]*)/
+    str.gsub(regex) { "#{Regexp.last_match[1]}#{Regexp.last_match[2].capitalize}" }.gsub("/", "::")
   end
 end

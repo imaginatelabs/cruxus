@@ -10,11 +10,11 @@ describe ConfWorkflow::Conf do
 
   describe "#conf" do
     context "when no commands are specified" do
-
       let(:key_command) { "conf key [KEY]" }
       let(:key_desc) { "# Returns the value of the configuration key" }
       let(:select_command) { "conf select [REGEX]" }
-      let(:select_desc) { "# Returns any keys and values that match the regular expression" }
+      let(:select_desc) { "# Returns keys and values matching the regex" }
+
       let(:output) { capture(:stdout) { cx.conf } }
 
       subject { output }

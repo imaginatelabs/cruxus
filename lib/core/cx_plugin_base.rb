@@ -1,11 +1,16 @@
 require "bundler/vendored_thor"
 
+# Base class for all workflow plugins
 class CxPluginBase < Thor
-  def self.help_desc(help_desc)
-    @help_desc= help_desc
-  end
+  class << self
+    # rubocop:disable all
+    def help_desc(help_desc)
+      @help_desc = help_desc
+    end
 
-  def self.help_text
-    @help_desc
+    def help_text
+      @help_desc
+    end
+    # rubocop:enable all
   end
 end

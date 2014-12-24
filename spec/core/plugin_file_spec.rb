@@ -3,7 +3,7 @@ require "rspec"
 require "./lib/core/plugin_file"
 
 describe PluginFile do
-  let(:plugin_file) { PluginFile.new("/Users/user/cx/plugins/tests/my_plugin_test.rb","test") }
+  let(:plugin_file) { PluginFile.new("/Users/user/cx/plugins/tests/my_plugin_test.rb", "test") }
 
   context "given a type and a valid file path" do
     describe ".instance_name" do

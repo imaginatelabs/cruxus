@@ -1,5 +1,7 @@
+# Useful Rspec testing helpers
 module Helper
   def capture(stream)
+    # rubocop:disable all
     begin
       stream = stream.to_s
       eval "$#{stream} = StringIO.new"
@@ -8,7 +10,7 @@ module Helper
     ensure
       eval("$#{stream} = #{stream.upcase}")
     end
-
+  # rubocop:enable all
     result
   end
 end

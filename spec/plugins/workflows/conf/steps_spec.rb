@@ -5,30 +5,29 @@ require "./lib/plugins/workflows/conf/steps"
 include Confstruct
 
 describe ConfWorkflow::Steps do
-  let(:subject) { ConfWorkflow::Steps.new(
-      {
-          "foo" => "bar", "barr" => "mee", "rea" => "so", "foo1" => "dodecine",
-          "sub" => {
-              "jim" => "bob",
-              "garth" => "bag",
-              "read" => "gooder",
-              "subsub" => {
-                  "noo" => "real",
-                  "gre" => "ben"
-              }
-          },
-          "sub2" => {
-              "to" => "fr0",
-              "sub2sub" => {
-                  "yo" => "go",
-                  "sub2subsub" => {
-                      "reagal" => "yo"
-                  }
-              }
+  let(:subject) do
+    ConfWorkflow::Steps.new(
+      "foo" => "bar", "barr" => "mee", "rea" => "so", "foo1" => "dodecine",
+      "sub" => {
+        "jim" => "bob",
+        "garth" => "bag",
+        "read" => "gooder",
+        "subsub" => {
+          "noo" => "real",
+          "gre" => "ben"
+        }
+      },
+      "sub2" => {
+        "to" => "fr0",
+        "sub2sub" => {
+          "yo" => "go",
+          "sub2subsub" => {
+            "reagal" => "yo"
           }
+        }
       }
     )
-  }
+  end
 
   describe ".select" do
     context "when multiple similar configuration keys and values exist" do
@@ -48,17 +47,17 @@ describe ConfWorkflow::Steps do
     it "when multiple similar configuration keys, sub keys and values exist" do
       expect(subject.select("rea")).to eq("rea" => "so",
                                           "sub" => {
-                                              "read" => "gooder",
-                                              "subsub" =>{
-                                                  "noo" => "real"
-                                              }
+                                            "read" => "gooder",
+                                            "subsub" => {
+                                              "noo" => "real"
+                                            }
                                           },
-                                          "sub2" =>{
-                                              "sub2sub" =>{
-                                                  "sub2subsub" =>{
-                                                      "reagal" => "yo"
-                                                  }
+                                          "sub2" => {
+                                            "sub2sub" => {
+                                              "sub2subsub" => {
+                                                "reagal" => "yo"
                                               }
+                                            }
                                           }
                                        )
     end
@@ -77,5 +76,4 @@ describe ConfWorkflow::Steps do
       end
     end
   end
-
 end

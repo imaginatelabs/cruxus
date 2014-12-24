@@ -1,7 +1,7 @@
 require_relative "../../../core/cx_plugin_base"
 
 module WiWorkflow
-
+  # WIP
   class Wi < CxPluginBase
     help_desc "Manage CX Work Items"
 
