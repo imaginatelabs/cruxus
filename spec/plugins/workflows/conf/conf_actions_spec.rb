@@ -1,12 +1,12 @@
 require "confstruct"
 require "rspec"
-require "./lib/plugins/workflows/conf/steps"
+require "./lib/plugins/workflows/conf/conf_actions"
 
 include Confstruct
 
-describe ConfWorkflow::Steps do
+describe ConfWorkflow::ConfActions do
   let(:subject) do
-    ConfWorkflow::Steps.new(
+    ConfWorkflow::ConfActions.new(
       "foo" => "bar", "barr" => "mee", "rea" => "so", "foo1" => "dodecine",
       "sub" => {
         "jim" => "bob",

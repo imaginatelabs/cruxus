@@ -2,7 +2,7 @@ require_relative "../../../core/cxconf"
 
 module ConfWorkflow
   # Manage configuration
-  class Steps
+  class ConfActions
     def initialize(conf = CxConf)
       @conf = conf
     end
