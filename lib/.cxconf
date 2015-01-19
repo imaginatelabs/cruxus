@@ -1,1 +1,11 @@
 version: 1.0.0
+application: cruxus
+log:
+  formatter: plain
+  formatter_options: [plain,json]
+  level: info
+  level_options: [debug,info,warn,error,fatal]
+  message_format: "#{msg}"
+  file:
+    message_format: "#{severity_id}, [#{datetime.iso8601}##{pid}] #{severity_label} -- #{plugin_name}: #{msg}"
+    path: "cruxus.log"

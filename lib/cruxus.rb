@@ -1,13 +1,31 @@
-require "bundler/vendored_thor"
-require_relative "core/conf_utils"
 require_relative "core/cxconf"
+require_relative "core/cx_plugin_base"
 
 module Cx
   # Entry point to the application
-  class Cruxus < Thor
-    desc "version", "Displays the current version of Cruxus"
+  class Cruxus < CxPluginBase
+    # Logging options
+    class_option :log_file, desc: "File output is logged to.",
+                            aliases: :f,
+                            default: false,
+                            banner: "/path/to/log/file.log|(blank=cruxus.log)",
+                            group: "logging"
+
+    class_option :output_formatter, desc: "File format for log output.",
+                                    aliases: :o,
+                                    default: CxConf.log.formatter,
+                                    banner: CxConf.log.formatter_options.join("|"),
+                                    group: "logging"
+
+    class_option :log_level, desc: "Level at which output is displayed.",
+                             aliases: :l,
+                             default: CxConf.log.level,
+                             banner: CxConf.log.level_options.join("|"),
+                             group: "logging"
+
+    desc "version", "Prints the current version of Cruxus"
     def version
-      puts(CxConf.version)
+      info(CxConf.version)
     end
 
     CxConf.plugins("workflow").each do |plugin_file|
