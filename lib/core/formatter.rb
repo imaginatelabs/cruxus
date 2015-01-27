@@ -20,6 +20,15 @@ module Formatter
     @formatter.fatal message
     exit status
   end
+
+  def cx_exit(message, status = 0)
+    if status == 0
+      @formatter.info message
+    else
+      @formatter.err message
+    end
+    exit status
+  end
 end
 
 include Formatter
