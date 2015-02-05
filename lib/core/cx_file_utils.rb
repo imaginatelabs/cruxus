@@ -2,7 +2,7 @@ require "fileutils"
 require "securerandom"
 
 # Utility to manage various directory functions
-module DirUtils
+module CxFileUtils
   def temp_dir(folder = SecureRandom.uuid)
     path = "/tmp/cx/#{folder}"
     FileUtils.mkdir_p path
@@ -10,4 +10,4 @@ module DirUtils
   end
 end
 
-include DirUtils
+include CxFileUtils

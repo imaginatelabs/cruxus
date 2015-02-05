@@ -1,8 +1,8 @@
 require "rspec"
-require_relative "../../lib/core/dir_utils"
+require_relative "../../lib/core/cx_file_utils"
 
-describe DirUtils do
-  let(:dir_utils) { DirUtils }
+describe CxFileUtils do
+  let(:dir_utils) { CxFileUtils }
 
   describe "#temp_dir" do
     before do
