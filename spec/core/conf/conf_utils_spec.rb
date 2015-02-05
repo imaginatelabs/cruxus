@@ -54,58 +54,5 @@ describe ConfUtils do
                               )
       end
     end
-
-    context "plugin methods" do
-      before do
-        allow(conf_utils).to receive(:get_cxconf_paths)
-          .with("plugins/tests/")
-          .and_return(%W(#{File.dirname(__FILE__)}/plugins/tests))
-      end
-
-      describe "#files" do
-        context "when given an exiting directory" do
-          context "using the default glob to match" do
-            it "return all files in the directory" do
-              expect(subject.files("plugins/tests/").to_s).to include(
-                  "my_plugin_test.rb",
-                  "my_plugin2_test.rb",
-                  "unrelated_file.rb")
-            end
-          end
-
-          context "when give a custom glob to match" do
-            subject { conf_utils.files("plugins/tests/", "**/*plugin2*").to_s }
-
-            it "returns only the matching files" do
-              expect(subject).to include("my_plugin2_test.rb")
-            end
-          end
-        end
-      end
-
-      describe "#plugin_files" do
-        context "when plugin files exist under the specified dirname" do
-          subject do
-            conf_utils.plugin_files("test", "plugins/tests/", "**/*test*")
-          end
-          it "return an array of plugins of the same type" do
-            expect(subject.size).to eq 2
-            expect(subject[0].plugin_type).to eq("test")
-            expect(subject[1].plugin_type).to eq("test")
-          end
-        end
-      end
-
-      describe "#plugin" do
-        context "when plugin files exist in default directories" do
-          subject { conf_utils.plugins("test") }
-          it "return an array of plugins of the same type" do
-            expect(subject.size).to eq 2
-            expect(subject[0].plugin_type).to eq("test")
-            expect(subject[1].plugin_type).to eq("test")
-          end
-        end
-      end
-    end
   end
 end

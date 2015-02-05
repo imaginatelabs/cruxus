@@ -33,25 +33,6 @@ module ConfUtils
     File.absolute_path(Dir.pwd + "/../")
   end
 
-  def plugins(type)
-    plugin_files(type, "plugins/#{type}s/", "**/*#{type}.rb")
-  end
-
-  def plugin_files(type, dirname, glob = "**/*")
-    plugins = []
-    files(dirname, glob).each { |file| plugins << PluginFile.new(file, type) }
-    plugins
-  end
-
-  def files(dirname, glob = "**/*")
-    files = []
-    get_cxconf_paths(dirname).each do |dir|
-      find = "#{dir}#{glob}"
-      files << Dir.glob(find).select { |f| File.file?(f) } if Dir.exist?(dir)
-    end
-    files.flatten.map { |f| File.absolute_path(f) }
-  end
-
   def get_cxconf_paths(path = "")
     %W(#{cx_dir}/#{path}
        #{shared_dir}/#{CONFIG_DIR}/#{path}
@@ -59,4 +40,5 @@ module ConfUtils
        #{working_dir}/#{CONFIG_DIR}/#{path})
   end
 end
+
 include ConfUtils

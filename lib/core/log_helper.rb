@@ -1,4 +1,6 @@
 require_relative "cxconf"
+require_relative "plugin_manager"
+
 # Helper for setting up logging
 module LogHelper
   def log_file_path(file_path, conf = CxConf)
@@ -39,7 +41,7 @@ module LogHelper
   # rubocop:enable all
 
   def load_formatter(class_name, options)
-    CxConf.plugins("formatter").each do |plugin_file|
+    PluginManager.plugins("formatter").each do |plugin_file|
       next unless plugin_file.instance_name.downcase == options[:output_formatter]
       require plugin_file.absolute_path
       return formatter(plugin_file, class_name, options)
