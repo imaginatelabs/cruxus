@@ -6,7 +6,7 @@ describe PluginManager do
 
   context "plugin methods" do
     before do
-      allow(ConfUtils).to receive(:get_cxconf_paths)
+      allow(ConfDirHelper).to receive(:get_cxconf_paths)
         .with("plugins/tests/")
         .and_return(%W(#{File.dirname(__FILE__)}/plugins/tests))
     end

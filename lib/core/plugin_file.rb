@@ -1,4 +1,4 @@
-require_relative "conf_utils"
+require_relative "conf_dir_helper"
 
 # Represents the
 class PluginFile

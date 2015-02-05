@@ -1,6 +1,6 @@
 require "fileutils"
 require "securerandom"
-require_relative "conf_utils"
+require_relative "conf_dir_helper"
 
 # Utility to manage various directory functions
 module CxFileUtils
@@ -12,7 +12,7 @@ module CxFileUtils
 
   def files(dirname, glob = "**/*")
     files = []
-    ConfUtils.get_cxconf_paths(dirname).each do |dir|
+    ConfDirHelper.get_cxconf_paths(dirname).each do |dir|
       find = "#{dir}#{glob}"
       files << Dir.glob(find).select { |f| File.file?(f) } if Dir.exist?(dir)
     end

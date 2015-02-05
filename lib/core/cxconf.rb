@@ -1,6 +1,6 @@
 require "confstruct"
 require "singleton"
-require_relative "./conf_utils"
+require_relative "conf_dir_helper"
 
 include Confstruct
 
@@ -13,7 +13,7 @@ include Confstruct
 #
 class CxConf < Configuration
   include Singleton
-  include ConfUtils
+  include ConfDirHelper
 
   def initialize
     conf_files = get_cxconf_paths(".cxconf")

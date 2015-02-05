@@ -4,8 +4,8 @@ require "env"
 require "os"
 require_relative "plugin_file"
 
-# ConfUtils - Utility methods for managing configuration
-module ConfUtils
+# ConfDirHelper - Utility methods for managing configuration
+module ConfDirHelper
   CONFIG_DIR = "cx"
 
   def load_config_files(config_files)
@@ -41,4 +41,4 @@ module ConfUtils
   end
 end
 
-include ConfUtils
+include ConfDirHelper

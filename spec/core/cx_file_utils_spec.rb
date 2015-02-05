@@ -28,10 +28,10 @@ describe CxFileUtils do
   end
 
   describe "#files" do
-    let(:conf_utils) { ConfUtils }
+    let(:conf_dir_helper) { ConfDirHelper }
 
     before do
-      allow(ConfUtils).to receive(:get_cxconf_paths)
+      allow(ConfDirHelper).to receive(:get_cxconf_paths)
         .with("plugins/tests/")
         .and_return(%W(#{File.dirname(__FILE__)}/plugins/tests))
     end

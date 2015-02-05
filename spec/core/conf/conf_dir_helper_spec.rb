@@ -1,9 +1,9 @@
 require "rspec"
-require "./lib/core/conf_utils"
+require_relative "../../../lib/core/conf_dir_helper"
 
-describe ConfUtils do
-  let(:conf_utils) { ConfUtils }
-  subject { conf_utils }
+describe ConfDirHelper do
+  let(:conf_dir_helper) { ConfDirHelper }
+  subject { conf_dir_helper }
 
   describe "#load_config_files" do
     context "when multiple configuration files are loaded" do
@@ -25,14 +25,14 @@ describe ConfUtils do
 
   describe "#get_cxconf_paths" do
     before do
-      allow(conf_utils).to receive(:shared_dir).and_return("/etc")
-      allow(conf_utils).to receive(:user_dir).and_return("/home/my_user")
-      allow(conf_utils).to receive(:cx_dir).and_return("/usr/bin/cx")
-      allow(conf_utils).to receive(:working_dir).and_return("/home/my_user/code/my_project")
+      allow(conf_dir_helper).to receive(:shared_dir).and_return("/etc")
+      allow(conf_dir_helper).to receive(:user_dir).and_return("/home/my_user")
+      allow(conf_dir_helper).to receive(:cx_dir).and_return("/usr/bin/cx")
+      allow(conf_dir_helper).to receive(:working_dir).and_return("/home/my_user/code/my_project")
     end
 
     context "when paths exist or not on the system" do
-      subject { conf_utils.get_cxconf_paths }
+      subject { conf_dir_helper.get_cxconf_paths }
 
       it "loads paths for configuration order" do
         expect(subject).to match_array(%w(/usr/bin/cx/
@@ -43,7 +43,7 @@ describe ConfUtils do
     end
 
     context "when passing in an extension path" do
-      subject { conf_utils.get_cxconf_paths(".cxconf") }
+      subject { conf_dir_helper.get_cxconf_paths(".cxconf") }
 
       it "appended the extension path to the base path" do
         expect(subject).to match_array(
