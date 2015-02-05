@@ -1,4 +1,4 @@
-require_relative "cx_file_utils"
+require_relative "file_helper"
 
 # Manages the detection of plugins
 module PluginManager
@@ -8,7 +8,7 @@ module PluginManager
 
   def plugin_files(type, dirname, glob = "**/*")
     plugins = []
-    CxFileUtils.files(dirname, glob).each { |file| plugins << PluginFile.new(file, type) }
+    FileHelper.files(dirname, glob).each { |file| plugins << PluginFile.new(file, type) }
     plugins
   end
 end

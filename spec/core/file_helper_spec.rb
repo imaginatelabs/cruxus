@@ -1,8 +1,8 @@
 require "rspec"
-require_relative "../../lib/core/cx_file_utils"
+require_relative "../../lib/core/file_helper"
 
-describe CxFileUtils do
-  let(:cx_file_utils) { CxFileUtils }
+describe FileHelper do
+  let(:file_helper) { FileHelper }
 
   describe "#temp_dir" do
     before do
@@ -11,7 +11,7 @@ describe CxFileUtils do
     end
 
     context "given no argument" do
-      subject { cx_file_utils.temp_dir }
+      subject { file_helper.temp_dir }
 
       it "returns a temp directory with uuid" do
         is_expected.to eq("/tmp/cx/61a5ad24-9f70-4693-bc59-76333de04bbb")
@@ -19,7 +19,7 @@ describe CxFileUtils do
     end
 
     context "given an argument for a folder" do
-      subject { cx_file_utils.temp_dir "foo" }
+      subject { file_helper.temp_dir "foo" }
 
       it "returns a temp directory with the given folder" do
         is_expected.to eq("/tmp/cx/foo")
@@ -37,7 +37,7 @@ describe CxFileUtils do
     end
 
     context "when given an exiting directory" do
-      subject { cx_file_utils.files("plugins/tests/").to_s }
+      subject { file_helper.files("plugins/tests/").to_s }
 
       context "using the default glob to match" do
         it "return all files in the directory" do
@@ -48,7 +48,7 @@ describe CxFileUtils do
       end
 
       context "when give a custom glob to match" do
-        subject { cx_file_utils.files("plugins/tests/", "**/*plugin2*").to_s }
+        subject { file_helper.files("plugins/tests/", "**/*plugin2*").to_s }
 
         it "returns only the matching files" do
           expect(subject).to include("my_plugin2_test.rb")
