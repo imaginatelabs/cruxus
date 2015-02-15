@@ -5,6 +5,7 @@ gem "thor"
 gem "confstruct"
 gem "env"
 gem "os"
+gem "oga"
 
 group :development do
   gem "pry"

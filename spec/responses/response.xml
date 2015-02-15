@@ -1,0 +1,24 @@
+<xml>
+    <items>
+        <item>
+            <name>first</name>
+            <id>1</id>
+            <properties>
+                <property>
+                    <key>myKey</key>
+                    <value>my value</value>
+                </property>
+            </properties>
+        </item>
+        <item>
+            <name>second</name>
+            <id>2</id>
+            <properties>
+                <property>
+                    <key>myKey</key>
+                    <value>my value</value>
+                </property>
+            </properties>
+        </item>
+    </items>
+</xml>

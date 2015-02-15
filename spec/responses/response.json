@@ -1,0 +1,16 @@
+[
+    {
+        "name": "first",
+        "id": 1,
+        "properties": {
+            "myKey": "my value"
+        }
+    },
+    {
+        "name": "second",
+        "id": 1,
+        "properties": {
+            "myKey": "my value"
+        }
+    }
+]
