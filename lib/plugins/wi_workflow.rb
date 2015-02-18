@@ -1,4 +1,4 @@
-require_relative "../../../core/cx_plugin_base"
+require_relative "../core/cx_plugin_base"
 
 module WiWorkflow
   # WIP

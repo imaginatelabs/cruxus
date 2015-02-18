@@ -3,7 +3,7 @@ require_relative "file_helper"
 # Manages the detection of plugins
 module PluginManager
   def plugins(type)
-    plugin_files(type, "plugins/#{type}s/", "**/*#{type}.rb")
+    plugin_files(type, "plugins/", "**/*_#{type}.rb")
   end
 
   def plugin_files(type, dirname, glob = "**/*")

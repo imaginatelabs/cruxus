@@ -1,6 +1,6 @@
 require "confstruct"
 require "rspec"
-require "./lib/plugins/workflows/conf/conf_actions"
+require_relative "../../lib/plugins/conf_actions"
 
 include Confstruct
 

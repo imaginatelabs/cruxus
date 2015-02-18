@@ -32,12 +32,12 @@ describe FileHelper do
 
     before do
       allow(ConfDirHelper).to receive(:get_cxconf_paths)
-        .with("plugins/tests/")
-        .and_return(%W(#{File.dirname(__FILE__)}/plugins/tests))
+        .with("plugins/")
+        .and_return(%W(#{File.dirname(__FILE__)}/plugins/))
     end
 
     context "when given an exiting directory" do
-      subject { file_helper.files("plugins/tests/").to_s }
+      subject { file_helper.files("plugins/").to_s }
 
       context "using the default glob to match" do
         it "return all files in the directory" do
@@ -48,7 +48,7 @@ describe FileHelper do
       end
 
       context "when give a custom glob to match" do
-        subject { file_helper.files("plugins/tests/", "**/*plugin2*").to_s }
+        subject { file_helper.files("plugins/", "**/*plugin2*").to_s }
 
         it "returns only the matching files" do
           expect(subject).to include("my_plugin2_test.rb")

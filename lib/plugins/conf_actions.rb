@@ -1,4 +1,4 @@
-require_relative "../../../core/cxconf"
+require_relative "../core/cxconf"
 
 module ConfWorkflow
   # Manage configuration

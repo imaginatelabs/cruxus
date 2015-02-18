@@ -1,5 +1,5 @@
 require "rspec"
-require_relative "../../../lib/plugins/formatters/plain_formatter"
+require_relative "../../lib/plugins/plain_formatter"
 
 describe PlainFormatter::Plain do
   subject do

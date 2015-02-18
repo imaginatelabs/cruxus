@@ -1,7 +1,7 @@
 require "rspec"
-require_relative "../../../../spec/helper"
-require_relative "../../../../lib/cruxus"
-require_relative "../../../../lib/plugins/workflows/conf/conf_workflow"
+require_relative "../helper"
+require_relative "../../lib/cruxus"
+require_relative "../../lib/plugins/conf_workflow"
 
 describe ConfWorkflow::Conf do
   include Helper

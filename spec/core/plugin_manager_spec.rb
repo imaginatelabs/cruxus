@@ -7,14 +7,14 @@ describe PluginManager do
   context "plugin methods" do
     before do
       allow(ConfDirHelper).to receive(:get_cxconf_paths)
-        .with("plugins/tests/")
-        .and_return(%W(#{File.dirname(__FILE__)}/plugins/tests))
+        .with("plugins/")
+        .and_return(%W(#{File.dirname(__FILE__)}/plugins/))
     end
 
     describe "#plugin_files" do
       context "when plugin files exist under the specified dirname" do
         subject do
-          plugin_manager.plugin_files("test", "plugins/tests/", "**/*test*")
+          plugin_manager.plugin_files("test", "plugins/", "**/*test*")
         end
         it "return an array of plugins of the same type" do
           expect(subject.size).to eq 2
