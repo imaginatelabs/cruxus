@@ -1,7 +1,6 @@
 # Helper functions for strings
 module StringHelper
   def camelize(str, uppercase_first_letter = true)
-
     if uppercase_first_letter
       str = str.sub(/^[a-z\d]*/) { $&.capitalize }
     else

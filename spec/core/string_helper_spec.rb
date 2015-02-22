@@ -2,7 +2,6 @@ require "rspec"
 require_relative "../../lib/core/string_helper"
 
 describe StringHelper do
-
   describe "#camelize" do
     context "given default second argument: first letter upcase is true" do
       subject { StringHelper.camelize string }
@@ -52,7 +51,7 @@ describe StringHelper do
       end
 
       context "given the string begins with an underscores" do
-        # FIXME this case is unlikely at this point
+        # FIXME: this case is unlikely at this point
         let(:string) { "_this_string" }
 
         xit "camelizes the string" do
