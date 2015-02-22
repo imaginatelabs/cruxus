@@ -11,7 +11,7 @@ class PluginFile
   end
 
   def instance_name
-    plugin_name.gsub(plugin_type.capitalize, "")
+    plugin_name.gsub(StringHelper.camelize(@plugin_type), "")
   end
 
   def plugin_name

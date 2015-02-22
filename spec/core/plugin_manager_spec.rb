@@ -24,13 +24,23 @@ describe PluginManager do
       end
     end
 
-    describe "#plugin" do
+    describe "#plugins" do
       context "when plugin files exist in default directories" do
         subject { plugin_manager.plugins("test") }
         it "return an array of plugins of the same type" do
           expect(subject.size).to eq 2
           expect(subject[0].plugin_type).to eq("test")
           expect(subject[1].plugin_type).to eq("test")
+        end
+      end
+    end
+
+    describe "#plugin" do
+      context "when plugin exists that matches exactly" do
+        subject { plugin_manager.plugin("my_plugin", "test") }
+        it "return an array of plugins of the same type" do
+          expect(subject.module_class_name).to eq("MyPluginTest::MyPlugin")
+          expect(subject.plugin_type).to eq("test")
         end
       end
     end
