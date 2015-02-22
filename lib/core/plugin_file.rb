@@ -1,4 +1,5 @@
 require_relative "conf_dir_helper"
+require_relative "string_helper"
 
 # Represents the
 class PluginFile
@@ -14,22 +15,10 @@ class PluginFile
   end
 
   def plugin_name
-    camelize(File.basename(@absolute_path, ".rb"))
+    StringHelper.camelize(File.basename(@absolute_path, ".rb"))
   end
 
   def module_class_name
     "#{plugin_name}::#{instance_name}"
-  end
-
-  private
-
-  def camelize(str, uppercase_first_letter = true)
-    if uppercase_first_letter
-      str = str.sub(/^[a-z\d]*/) { $&.capitalize }
-    else
-      str = str.sub(/^(?:(?=\b|[A-Z_])|\w)/) { $&.downcase }
-    end
-    regex = /(?:_|(\/))([a-z\d]*)/
-    str.gsub(regex) { "#{Regexp.last_match[1]}#{Regexp.last_match[2].capitalize}" }.gsub("/", "::")
   end
 end
