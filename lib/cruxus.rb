@@ -1,5 +1,5 @@
 require_relative "core/cxconf"
-require_relative "core/plugin_manager"
+require_relative "core/plugin_loader"
 require_relative "core/cx_plugin_base"
 
 module Cx
@@ -29,7 +29,7 @@ module Cx
       info(CxConf.version)
     end
 
-    PluginManager.plugins("workflow").each do |plugin_file|
+    PluginLoader.find_plugin_files("workflow").each do |plugin_file|
       require plugin_file.absolute_path
       # rubocop:disable all
       eval("extend #{plugin_file.plugin_name}")
