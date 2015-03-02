@@ -4,7 +4,7 @@ require_relative "formatter"
 require_relative "log_helper"
 
 # Base class for all workflow plugins
-class CxPluginBase < Thor
+class CxWorkflowPluginBase < Thor
   def initialize(args = [], options = {}, config = {})
     super(args, options, config)
     @formatter = LogHelper.load_formatter(self.class.name, @options)

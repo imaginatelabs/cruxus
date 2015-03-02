@@ -1,10 +1,10 @@
 require_relative "core/cxconf"
 require_relative "core/plugin_loader"
-require_relative "core/cx_plugin_base"
+require_relative "core/cx_workflow_plugin_base"
 
 module Cx
   # Entry point to the application
-  class Cruxus < CxPluginBase
+  class Cruxus < CxWorkflowPluginBase
     # Logging options
     class_option :log_file, desc: "File output is logged to.",
                             aliases: :f,
