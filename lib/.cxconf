@@ -9,3 +9,7 @@ log:
   file:
     message_format: "#{severity_id}, [#{datetime.iso8601}##{pid}] #{severity_label} -- #{plugin_name}: #{msg}"
     path: "cruxus.log"
+vcs:
+  action: git
+  remote: origin
+  main_branch: master

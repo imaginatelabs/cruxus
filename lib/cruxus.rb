@@ -29,6 +29,14 @@ module Cx
       info(CxConf.version)
     end
 
+    desc "feature", "Creates a feature branch for you to develop your changes"
+    option :start_commit,
+           desc: "Commit you want to branch from",
+           default: "HEAD"
+    def feature(feature_name)
+      vcs.start_new_feature options[:start_commit], feature_name
+    end
+
     PluginLoader.find_plugin_files("workflow").each do |plugin_file|
       require plugin_file.absolute_path
       # rubocop:disable all
@@ -36,6 +44,14 @@ module Cx
       eval("desc '#{plugin_file.instance_name.downcase} [COMMAND] [ARGS]', '#{eval("#{plugin_file.module_class_name}.help_text")}'")
       eval("subcommand '#{plugin_file.instance_name.downcase}', #{plugin_file.module_class_name}")
       # rubocop:enable all
+    end
+
+    no_commands do
+      def vcs
+        @vcs ||= begin
+          PluginLoader.load_plugin CxConf.vcs.action, "vcs_actions", @formatter, options, CxConf
+        end
+      end
     end
   end
 end
