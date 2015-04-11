@@ -37,6 +37,11 @@ module Cx
       vcs.start_new_feature options[:start_commit], feature_name
     end
 
+    desc "latest", "Pull changes from the main branch into current branch"
+    def latest(main_branch = CxConf.vcs.main_branch)
+      vcs.latest_changes main_branch
+    end
+
     PluginLoader.find_plugin_files("workflow").each do |plugin_file|
       require plugin_file.absolute_path
       # rubocop:disable all
