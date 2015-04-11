@@ -13,3 +13,8 @@ vcs:
   action: git
   remote: origin
   main_branch: master
+build:
+  action: bash
+  unit:
+    changes_cmd:
+    all_cmd: pwd

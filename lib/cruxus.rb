@@ -42,6 +42,11 @@ module Cx
       vcs.latest_changes main_branch
     end
 
+    desc "build", "Run the build"
+    def build
+      bld.cmd
+    end
+
     PluginLoader.find_plugin_files("workflow").each do |plugin_file|
       require plugin_file.absolute_path
       # rubocop:disable all
@@ -55,6 +60,12 @@ module Cx
       def vcs
         @vcs ||= begin
           PluginLoader.load_plugin CxConf.vcs.action, "vcs_actions", @formatter, options, CxConf
+        end
+      end
+
+      def bld
+        @build ||= begin
+          PluginLoader.load_plugin CxConf.build.action, "build_actions", @formatter, options, CxConf
         end
       end
     end

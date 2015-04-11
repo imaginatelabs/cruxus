@@ -38,7 +38,7 @@ describe ConfDirHelper do
         expect(subject).to match_array(%w(/usr/bin/cx/
                                           /etc/cx/
                                           /home/my_user/cx/
-                                          /home/my_user/code/my_project/cx/))
+                                          /home/my_user/code/my_project/))
       end
     end
 
@@ -50,7 +50,7 @@ describe ConfDirHelper do
                                %w(/usr/bin/cx/.cxconf
                                   /etc/cx/.cxconf
                                   /home/my_user/cx/.cxconf
-                                  /home/my_user/code/my_project/cx/.cxconf)
+                                  /home/my_user/code/my_project/.cxconf)
                               )
       end
     end

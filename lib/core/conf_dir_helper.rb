@@ -30,14 +30,14 @@ module ConfDirHelper
   end
 
   def working_dir
-    File.absolute_path(Dir.pwd + "/../")
+    File.absolute_path(Dir.pwd)
   end
 
   def get_cxconf_paths(path = "")
     %W(#{cx_dir}/#{path}
        #{shared_dir}/#{CONFIG_DIR}/#{path}
        #{user_dir}/#{CONFIG_DIR}/#{path}
-       #{working_dir}/#{CONFIG_DIR}/#{path})
+       #{working_dir}/#{path})
   end
 end
 

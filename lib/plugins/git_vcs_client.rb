@@ -1,6 +1,9 @@
+require_relative "../core/cmd"
+
 module GitVcsClient
   # Wrapper around the git commands
   class Git
+    extend Cmd
     def branch_locally(start_commit, branch_name)
       git "branch #{branch_name} #{start_commit}"
     end
@@ -42,15 +45,37 @@ module GitVcsClient
     end
 
     def continue_rebase
-      !(git("rebase --continue").include?("needs merge"))
-    end
-
-    def merge_fast_forward_only(branch)
-      git("merge --ff-only #{branch}")
+      !`git rebase --continue`.include? "needs merge"
     end
 
     def launch_merge_conflict_tool
       Process.wait(spawn("git mergetool --no-prompt"))
+    end
+
+    def push(branch, remote = "origin", remote_branch)
+      `git push #{remote} #{branch}:#{remote_branch || branch}`
+    end
+
+    def delete_remote_branch(branch, remote)
+      delete_local_branch branch
+      `git push #{remote} :#{branch}`
+    end
+
+    def delete_local_branch(branch)
+      `git branch -D #{branch}`
+    end
+
+    def reset_head(commit)
+      `git reset --keep #{commit}`
+    end
+
+    def merge_fast_forward_only(branch)
+      `git merge --ff-only #{branch}`
+    end
+
+    def squash_branch(number_of_commits, message)
+      `git reset --soft HEAD~#{number_of_commits}`
+      `git commit -m '#{message}'`
     end
 
     def git(command)

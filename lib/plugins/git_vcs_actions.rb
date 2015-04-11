@@ -26,6 +26,23 @@ module GitVcsActions
       rebase_changes(main_branch, working_branch)
     end
 
+    def prepare_to_land_changes(main_branch, working_branch = @vcs.current_branch)
+      number_of_commits = @vcs.diverged_count main_branch, working_branch
+      info "Squashing #{number_of_commits} commits on branch '#{working_branch}'"
+      @vcs.squash_branch number_of_commits, "Hard coded commit message for non-interactive squash"
+    end
+
+    def land_changes(main_branch, working_branch = @vcs.current_branch, remote)
+      info "Landing changes from #{working_branch} onto #{main_branch}"
+      @vcs.checkout main_branch
+      @vcs.merge_fast_forward_only working_branch
+      debug "Pushing changes onto #{main_branch}"
+      @vcs.push main_branch
+      debug "Removing branch #{working_branch}"
+      @vcs.delete_remote_branch working_branch, remote
+      info "Changes landed successfully onto #{main_branch}"
+    end
+
     def self.generate(formatter, options = {}, conf = CxConf)
       new GitVcsClient::Git.new, formatter,  options, conf
     end
@@ -36,7 +53,7 @@ module GitVcsActions
       remote_branch = "#{remote}/#{main_branch}"
       inf "Checking for new commits on '#{remote_branch}'"
       @vcs.fetch
-      changes = @vcs.diverge_list main_branch, remote_branch
+      changes = @vcs.diverge_list main_branch, "#{remote_branch}"
       return if changes.empty?
       @vcs.checkout main_branch
       inf "Pulling the following new commits from '#{main_branch}':\n#{changes}"
