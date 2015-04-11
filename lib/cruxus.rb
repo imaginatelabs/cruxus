@@ -26,7 +26,7 @@ module Cx
 
     desc "version", "Prints the current version of Cruxus"
     def version
-      info(CxConf.version)
+      inf(CxConf.version)
     end
 
     desc "feature", "Creates a feature branch for you to develop your changes"

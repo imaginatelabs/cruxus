@@ -10,7 +10,7 @@ describe PlainFormatter::Plain do
     let(:log_level) { "info" }
 
     it "PlainFormatter is initialized correctly" do
-      expect(subject.info?).to be(true)
+      expect(subject.inf?).to be(true)
     end
   end
 end

@@ -1,15 +1,15 @@
 # Mixin for using formatter
 module Formatter
-  def debug(message)
-    @formatter.debug message
+  def dbg(message)
+    @formatter.dbg message
   end
 
-  def info(message)
-    @formatter.info message
+  def inf(message)
+    @formatter.inf message
   end
 
-  def warn(message)
-    @formatter.warn message
+  def wrn(message)
+    @formatter.wrn message
   end
 
   def err(message)
@@ -17,13 +17,13 @@ module Formatter
   end
 
   def fatal(message, status = 1)
-    @formatter.fatal message
+    @formatter.ftl message
     exit status
   end
 
   def cx_exit(message, status = 0)
     if status == 0
-      @formatter.info message
+      @formatter.inf message
     else
       @formatter.err message
     end

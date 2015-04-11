@@ -11,7 +11,7 @@ describe GitVcsActions do
   let(:git_vcs_client) { true }
 
   before do
-    allow(formatter).to receive(:info)
+    allow(formatter).to receive(:inf)
     allow(GitVcsClient::Git).to receive(:new).and_return(git_vcs_client)
   end
 

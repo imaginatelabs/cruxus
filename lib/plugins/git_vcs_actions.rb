@@ -11,9 +11,9 @@ module GitVcsActions
 
     def start_new_feature(start_commit, feature_name)
       if @vcs.branch? feature_name
-        info "Feature branch '#{feature_name}' already exists"
+        inf "Feature branch '#{feature_name}' already exists"
       else
-        info "Creating feature branch '#{feature_name}'"
+        inf "Creating feature branch '#{feature_name}'"
         @vcs.branch_locally(start_commit, feature_name)
       end
       @vcs.checkout feature_name

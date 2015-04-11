@@ -14,15 +14,15 @@ module PlainFormatter
       @err_log = LogHelper.logger(STDERR, log_file, log_level, formatter)
     end
 
-    def debug(message)
+    def dbg(message)
       @out_log.debug message.to_s
     end
 
-    def info(message)
+    def inf(message)
       @out_log.info message.to_s
     end
 
-    def warn(message)
+    def wrn(message)
       @out_log.warn message.to_s
     end
 
@@ -30,19 +30,19 @@ module PlainFormatter
       @err_log.error message.to_s
     end
 
-    def fatal(message)
+    def ftl(message)
       @err_log.fatal message.to_s
     end
 
-    def debug?
+    def dbg?
       @out_log.debug?
     end
 
-    def info?
+    def inf?
       @out_log.info?
     end
 
-    def warn?
+    def wrn?
       @out_log.warn?
     end
 
@@ -50,7 +50,7 @@ module PlainFormatter
       @err_log.error?
     end
 
-    def fatal?
+    def ftl?
       @err_log.fatal?
     end
   end
