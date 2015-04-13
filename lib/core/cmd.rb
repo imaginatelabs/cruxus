@@ -1,32 +1,47 @@
 require "open3"
+require "ostruct"
 
 # Manages interaction with the command line
 module Cmd
-  # Run a command and return the output
-  def run(cmd)
-    `#{cmd}`.strip
-  end
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize:
+  def run(cmd, &_block)
+    stdout_a, stderr_a, stdin_a, result = [], [], [], {}
 
-  # TODO: Fully implement and test
-  # Run a command and capture stdout stderr and exit status
-  def run_std(cmd)
-    o, e, r = Open3.capture3(cmd)
-    { out: o, err: e, status: r }
-  end
+    Open3.popen3(cmd) do |stdin, stdout, stderr, thread|
+      Thread.new do
+        until (line = stdout.gets).nil?
+          stdout_a << line.strip!
+          yield line, nil, thread if block_given?
+        end
+      end
 
-  # TODO: Fully implement and test
-  # Run a command interactively
-  def run_i(cmd)
-    Process.wait(spawn(cmd))
-  end
+      Thread.new do
+        until (line = stderr.gets).nil?
+          stderr_a << line.strip!
+          yield nil, line, thread  if block_given?
+        end
+      end
 
-  # TODO: Fully implement and test
-  # Prints the results for the stdout, stderr and result
-  def put_std_res(result)
-    failed = result[:status].exitstatus == 0
-    cx_exit "exited with error status #{result[:status].exitstatus}" unless failed
-    inf result[:out].strip
+      Thread.new do
+        while thread.alive?
+          line_in = $stdin.gets
+          stdin_a << line_in.strip!
+          stdin.puts line_in
+        end
+      end
+
+      thread.join
+
+      result = {
+        stdout: stdout_a, stderr: stderr_a, stdin: stdin_a,
+        exitstatus: thread.value.exitstatus,
+        pid: thread.value.pid,
+        success?: thread.value.success?
+      }
+    end
+    OpenStruct.new result
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize:
 end
 
 include Cmd

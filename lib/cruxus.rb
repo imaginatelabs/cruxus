@@ -44,7 +44,7 @@ module Cx
 
     desc "build", "Run the build"
     def build
-      bld.cmd
+      bld.cmd CxConf.build.cmd
     end
 
     PluginLoader.find_plugin_files("workflow").each do |plugin_file|
