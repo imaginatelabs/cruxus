@@ -33,11 +33,23 @@ module ConfDirHelper
     File.absolute_path(Dir.pwd)
   end
 
+  def ascend_dir(dir, path = nil, terminate = nil)
+    dirs = []
+    Kernel.loop do
+      f_path = "#{dir}/#{path}"
+      dirs.push f_path.gsub "//", "/"
+      result = (dir = File.expand_path("#{dir}/../"))
+      break unless result != terminate && result != "//"
+    end
+    dirs.reverse
+  end
+
   def get_cxconf_paths(path = "")
-    %W(#{cx_dir}/#{path}
-       #{shared_dir}/#{CONFIG_DIR}/#{path}
-       #{user_dir}/#{CONFIG_DIR}/#{path}
-       #{working_dir}/#{path})
+    user = user_dir
+    (%W(#{cx_dir}/#{path}
+        #{shared_dir}/#{CONFIG_DIR}/#{path}
+        #{user}/#{CONFIG_DIR}/#{path}) << ascend_dir(working_dir, path, user))
+      .flatten
   end
 end
 

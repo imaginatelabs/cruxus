@@ -25,9 +25,9 @@ describe ConfDirHelper do
 
   describe "#get_cxconf_paths" do
     before do
+      allow(conf_dir_helper).to receive(:cx_dir).and_return("/usr/bin/cx")
       allow(conf_dir_helper).to receive(:shared_dir).and_return("/etc")
       allow(conf_dir_helper).to receive(:user_dir).and_return("/home/my_user")
-      allow(conf_dir_helper).to receive(:cx_dir).and_return("/usr/bin/cx")
       allow(conf_dir_helper).to receive(:working_dir).and_return("/home/my_user/code/my_project")
     end
 
@@ -35,10 +35,13 @@ describe ConfDirHelper do
       subject { conf_dir_helper.get_cxconf_paths }
 
       it "loads paths for configuration order" do
-        expect(subject).to match_array(%w(/usr/bin/cx/
-                                          /etc/cx/
-                                          /home/my_user/cx/
-                                          /home/my_user/code/my_project/))
+        expect(subject).to match_array(
+                              %w(/usr/bin/cx/
+                                 /etc/cx/
+                                 /home/my_user/cx/
+                                 /home/my_user/code/
+                                 /home/my_user/code/my_project/)
+                           )
       end
     end
 
@@ -50,8 +53,55 @@ describe ConfDirHelper do
                                %w(/usr/bin/cx/.cxconf
                                   /etc/cx/.cxconf
                                   /home/my_user/cx/.cxconf
+                                  /home/my_user/code/.cxconf
                                   /home/my_user/code/my_project/.cxconf)
                               )
+      end
+    end
+  end
+
+  describe "#ascend_dir" do
+    let(:dir) { "/home/my_user/code/my_project/sub/folders" }
+
+    context "given a default arguments" do
+      subject { conf_dir_helper.ascend_dir dir }
+      it "returns directories" do
+        expect(subject).to match_array(
+                             %w(/
+                                /home/
+                                /home/my_user/
+                                /home/my_user/code/
+                                /home/my_user/code/my_project/
+                                /home/my_user/code/my_project/sub/
+                                /home/my_user/code/my_project/sub/folders/)
+                           )
+      end
+    end
+
+    context "given a path argument" do
+      subject { conf_dir_helper.ascend_dir dir, ".cxconf" }
+      it "returns directories appended with path value" do
+        expect(subject).to match_array(
+                             %w(/.cxconf
+                                /home/.cxconf
+                                /home/my_user/.cxconf
+                                /home/my_user/code/.cxconf
+                                /home/my_user/code/my_project/.cxconf
+                                /home/my_user/code/my_project/sub/.cxconf
+                                /home/my_user/code/my_project/sub/folders/.cxconf)
+                           )
+      end
+    end
+
+    context "given a path argument and a termination dir" do
+      subject { conf_dir_helper.ascend_dir dir, ".cxconf", "/home/my_user" }
+      it "returns directories before the termination dir appended with path value" do
+        expect(subject).to match_array(
+                             %w(/home/my_user/code/.cxconf
+                                /home/my_user/code/my_project/.cxconf
+                                /home/my_user/code/my_project/sub/.cxconf
+                                /home/my_user/code/my_project/sub/folders/.cxconf)
+                           )
       end
     end
   end
