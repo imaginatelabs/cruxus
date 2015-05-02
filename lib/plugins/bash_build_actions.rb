@@ -7,10 +7,17 @@ module BashBuildActions
   class Bash < CxActionsPluginBase
     extend Cmd
     def cmd(bash_cmd)
-      run bash_cmd do | stdout, stderr, _thread|
+      result = run bash_cmd do | stdout, stderr, _thread|
         inf "#{stdout}" if stdout
         err "#{stderr}" if stderr
       end
+
+      unless result.exitstatus == 0
+        cx_exit "Command '#{bash_cmd}' failed with exitstatus #{result.exitstatus}",
+                result.exitstatus
+      end
+
+      result
     end
   end
 end

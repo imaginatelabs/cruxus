@@ -31,5 +31,25 @@ describe BashBuildActions::Bash do
         expect(formatter).to have_received(:err).with("Message2 to stderr")
       end
     end
+
+    context "given a passing exitstatus" do
+      subject { bash.cmd "exit 0" }
+
+      it "exits successfully" do
+        expect(subject.exitstatus).to eq(0)
+      end
+    end
+
+    context "given a failing exitstatus" do
+      subject { bash.cmd "exit 1" }
+
+      it "exits with failure exitstatus and logs message" do
+        begin
+          subject
+        rescue SystemExit => e
+          expect(e.status).to eq(1)
+        end
+      end
+    end
   end
 end
