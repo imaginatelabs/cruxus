@@ -9,10 +9,14 @@ log:
   file:
     message_format: "#{severity_id}, [#{datetime.iso8601}##{pid}] #{severity_label} -- #{plugin_name}: #{msg}"
     path: "cruxus.log"
-vcs:
+vcs: &vcs
   action: git
   remote: origin
   main_branch: master
+vcs_code_review: *vcs
+# TODO: implement - user_fork_reviews: false
+# vcs_fork_code_review
+#   enabled
 build:
   action: bash
   cmd: "echo 'Please configure your build with the property build.cmd in your project's .cxconf configuration file.'"

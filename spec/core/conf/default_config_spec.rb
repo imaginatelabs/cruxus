@@ -15,5 +15,10 @@ describe ".cxconf" do
       expect(subject.build.cmd).to eq("echo 'Please configure your build with the property "\
                                       "build.cmd in your project's .cxconf configuration file.'")
     end
+
+    it "has the same variables for vcs and vcs_code_review" do
+      expect(subject.vcs.remote).to eq(subject.vcs_code_review.remote)
+      expect(subject.vcs.main_branch).to eq(subject.vcs_code_review.main_branch)
+    end
   end
 end

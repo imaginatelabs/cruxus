@@ -47,6 +47,16 @@ module Cx
       bld.cmd CxConf.build.cmd
     end
 
+    desc "review", "Creates and submits a code review"
+    option :remote,
+           desc: "Remote server to submit code review",
+           default: CxConf.vcs_code_review.remote
+    def review
+      invoke :latest
+      invoke :build
+      vcs.submit_code_review options[:remote]
+    end
+
     PluginLoader.find_plugin_files("workflow").each do |plugin_file|
       require plugin_file.absolute_path
       # rubocop:disable all

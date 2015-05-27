@@ -1,4 +1,5 @@
 require_relative "../core/cmd"
+require_relative "../core/vcs_file"
 
 module GitVcsClient
   # Wrapper around the git commands
@@ -22,6 +23,18 @@ module GitVcsClient
 
     def fetch
       git "fetch"
+    end
+
+    def uncommitted_changes
+      vcs_files = []
+      changes = git "status --porcelain"
+      changes.split("\n").each do |change|
+        vcs_files << VcsFile.new(
+          File.absolute_path(change.split(" ")[1]),
+          parse_status(change.slice(0..1))
+        )
+      end
+      vcs_files
     end
 
     def pull(remote, branch, remote_branch = nil)
@@ -56,6 +69,10 @@ module GitVcsClient
       git "push #{remote} #{branch}:#{remote_branch || branch}"
     end
 
+    def push_force(remote, branch, remote_branch = nil)
+      git "push #{remote} #{branch}:#{remote_branch || branch} --force"
+    end
+
     def delete_remote_branch(branch, remote)
       delete_local_branch branch
       `git push #{remote} :#{branch}`
@@ -79,11 +96,32 @@ module GitVcsClient
     end
 
     def server_availability?(remote)
-      git("ls-remote #{remote}").include? "fatal: unable to access"
+      !git("ls-remote #{remote}").include? "fatal: unable to access"
     end
 
     def git(command)
       `git #{command}`.strip
     end
+
+    private
+
+    def parse_status(status_str)
+      { staged: parse_char(status_str[0]), unstaged: parse_char(status_str[1]) }
+    end
+
+    # rubocop:disable Metrics/CyclomaticComplexity
+    def parse_char(char)
+      case char
+      when "?" then return :untracked
+      when "M" then return :modified
+      when "A" then return :added
+      when "D" then return :deleted
+      when "R" then return :renamed
+      when "C" then return :copied
+      when "U" then return :updated
+      else return :none
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity
   end
 end

@@ -61,6 +61,7 @@ describe GitVcsActions::Git do
     let(:diverge_list_result) { "" }
     let(:server_availability) { true }
     let(:diverge_result) { false }
+    let(:uncommitted_changes) { [] }
 
     subject { git_vcs_actions.latest_changes main_branch, working_branch, remote }
 
@@ -75,6 +76,7 @@ describe GitVcsActions::Git do
       allow(git_vcs_client).to receive(:pull).with(remote, main_branch)
       allow(git_vcs_client).to receive(:rebase_onto).with(main_branch).and_return(merge_result)
       allow(git_vcs_client).to receive(:server_availability?).and_return(server_availability)
+      allow(git_vcs_client).to receive(:uncommitted_changes).and_return(uncommitted_changes)
     end
 
     context "when the server is unavailable" do
@@ -140,6 +142,67 @@ describe GitVcsActions::Git do
         it "updates both the main branch and re-bases the working branch on top" do
           subject
           expect(git_vcs_client).to have_received(:launch_merge_conflict_tool)
+        end
+      end
+    end
+  end
+
+  describe "#submit_code_review" do
+    before do
+      allow(git_vcs_client).to receive(:uncommitted_changes).and_return(changes)
+      allow(git_vcs_client).to receive(:push_force)
+    end
+
+    subject { git_vcs_actions.submit_code_review "origin", "develop" }
+
+    context "when there are uncommited changes" do
+      let(:changes) do
+        [
+          VcsFile.new("foo.txt", staged: :modified, unstaged: :none),
+          VcsFile.new("bar.txt", staged: :modified, unstaged: :none),
+          VcsFile.new("baz.txt", staged: :modified, unstaged: :none),
+          VcsFile.new("mee.txt", staged: :none, unstaged: :modified)
+        ]
+      end
+
+      it "exits cx without pushing" do
+        expect(git_vcs_client).to_not receive(:push_force)
+        expect { subject }.to raise_error SystemExit
+      end
+
+      it "prints a list of uncommitted changes" do
+        expect(formatter).to receive(:err).with(
+          "Uncommitted changes found:\n"\
+          "   UNSTAGED  STAGED    FILE     \n"\
+          " - modified  none      foo.txt\n"\
+          " - modified  none      bar.txt\n"\
+          " - modified  none      baz.txt\n"\
+          " - none      modified  mee.txt"
+        )
+        expect { subject }.to raise_error SystemExit
+      end
+    end
+
+    context "when there are no uncommited changes" do
+      let(:changes) { [] }
+      let(:server_availability) { true }
+
+      before do
+        allow(git_vcs_client).to receive(:server_availability?).and_return(server_availability)
+      end
+
+      context "when the remote server is available" do
+        it "pushes to the remote" do
+          subject
+          expect(git_vcs_client).to have_received(:push_force).with("origin", "develop")
+        end
+      end
+
+      context "when the remote server is unavailable" do
+        let(:server_availability) { false }
+        it "exits the application" do
+          expect(git_vcs_client).not_to receive(:push)
+          expect { subject }.to raise_error SystemExit
         end
       end
     end
