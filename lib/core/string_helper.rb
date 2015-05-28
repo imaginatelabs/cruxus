@@ -1,13 +1,12 @@
 # Helper functions for strings
 module StringHelper
-  def camelize(str, uppercase_first_letter = true)
-    if uppercase_first_letter
-      str = str.sub(/^[a-z\d]*/) { $&.capitalize }
+  def camelize(str, upcase_first = true)
+    if upcase_first
+      str = str.gsub(/^[a-z\d]*/) { $&.capitalize }
     else
-      str = str.sub(/^(?:(?=\b|[A-Z_])|\w)/) { $&.downcase }
+      str = str.gsub(/^_/, "").gsub!(/^(?:(?=\b|[A-Z_])|\w)/) { $&.downcase }
     end
-    regex = /(?:_|(\/))([a-z\d]*)/
-    str.gsub(regex) { "#{Regexp.last_match[2].capitalize}" }.gsub("/", "::")
+    str.gsub(/(?:_|(\/))([a-z\d]*)/) { "#{Regexp.last_match[2].capitalize}" }.gsub("/", "::")
   end
 end
 

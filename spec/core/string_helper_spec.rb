@@ -54,7 +54,7 @@ describe StringHelper do
         # FIXME: this case is unlikely at this point
         let(:string) { "_this_string" }
 
-        xit "camelizes the string" do
+        it "camelizes the string" do
           expect(subject).to eq "thisString"
         end
       end
