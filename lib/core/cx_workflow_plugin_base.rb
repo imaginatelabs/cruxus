@@ -1,4 +1,4 @@
-require "bundler/vendored_thor"
+require "thor"
 require_relative "cxconf"
 require_relative "formatter"
 require_relative "log_helper"
