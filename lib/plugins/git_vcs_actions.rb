@@ -9,6 +9,10 @@ module GitVcsActions
       @vcs = vcs
     end
 
+    def self.generate(formatter, options = {}, conf = CxConf)
+      new GitVcsClient::Git.new, formatter,  options, conf
+    end
+
     def start_new_feature(start_commit, feature_name)
       if @vcs.branch? feature_name
         inf "Feature branch '#{feature_name}' already exists"
@@ -41,10 +45,6 @@ module GitVcsActions
       debug "Removing branch #{working_branch}"
       @vcs.delete_remote_branch working_branch, remote
       info "Changes landed successfully onto #{main_branch}"
-    end
-
-    def self.generate(formatter, options = {}, conf = CxConf)
-      new GitVcsClient::Git.new, formatter,  options, conf
     end
 
     private
