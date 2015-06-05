@@ -13,6 +13,7 @@ describe GitVcsActions::Git do
   before do
     allow(formatter).to receive(:inf)
     allow(formatter).to receive(:wrn)
+    allow(formatter).to receive(:err)
     allow(GitVcsClient::Git).to receive(:new).and_return(git_vcs_client)
   end
 
@@ -58,6 +59,8 @@ describe GitVcsActions::Git do
     let(:remote_branch) { "#{remote}/#{main_branch}" }
     let(:merge_result) { true }
     let(:diverge_list_result) { "" }
+    let(:server_availability) { true }
+    let(:diverge_result) { false }
 
     subject { git_vcs_actions.latest_changes main_branch, working_branch, remote }
 
@@ -71,11 +74,20 @@ describe GitVcsActions::Git do
       allow(git_vcs_client).to receive(:checkout)
       allow(git_vcs_client).to receive(:pull).with(main_branch, remote)
       allow(git_vcs_client).to receive(:rebase_onto).with(main_branch).and_return(merge_result)
+      allow(git_vcs_client).to receive(:server_availability?).and_return(server_availability)
+    end
+
+    context "when the server is unavailable" do
+      let(:server_availability) { false }
+
+      it "exits the application" do
+        expect(formatter).to receive(:err)
+          .with("Couldn't retrieve latest changes - Remote 'origin' unavailable")
+        expect { subject }.to raise_error SystemExit
+      end
     end
 
     context "when there are no upstream changes" do
-      let(:diverge_result) { false }
-
       it "exits successfully without any changes" do
         begin
           subject

@@ -78,6 +78,10 @@ module GitVcsClient
       `git commit -m '#{message}'`
     end
 
+    def server_availability?(remote)
+      git("ls-remote #{remote}").include? "fatal: unable to access"
+    end
+
     def git(command)
       `git #{command}`.strip
     end

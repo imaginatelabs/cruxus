@@ -24,6 +24,7 @@ module GitVcsActions
     end
 
     def latest_changes(main_branch, working_branch = @vcs.current_branch, remote = @conf.vcs.remote)
+      exit_when_server_unavailable(remote, "Couldn't retrieve latest changes")
       update_branch(main_branch, remote, working_branch)
       diverged = @vcs.diverged? main_branch, working_branch
       cx_exit "'#{working_branch}' is up-to-date with '#{remote}/#{main_branch}'", 0 unless diverged
@@ -48,6 +49,13 @@ module GitVcsActions
     end
 
     private
+
+    # Use this method from top public level methods
+    def exit_when_server_unavailable(remote, message = nil)
+      default = "Remote '#{remote}' unavailable"
+      message = message.nil? ? default : "#{message} - #{default}"
+      cx_exit(message, 1) unless @vcs.server_availability? remote
+    end
 
     def update_branch(main_branch, remote, working_branch)
       remote_branch = "#{remote}/#{main_branch}"
