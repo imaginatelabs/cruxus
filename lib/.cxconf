@@ -15,6 +15,4 @@ vcs:
   main_branch: master
 build:
   action: bash
-  unit:
-    changes_cmd:
-    all_cmd: pwd
+  cmd: "echo 'Please configure your build with the property build.cmd in your project's .cxconf configuration file.'"
