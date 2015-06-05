@@ -21,8 +21,8 @@ class CxConf < Configuration
     super(conf)
   end
 
-  def self.respond_to?(method)
-    super || instance.respond_to?(method)
+  def self.respond_to?(symbol, include_all = false)
+    super || instance.respond_to?(symbol, include_all)
   end
 
   def self.method_missing(method, *args, &_block)

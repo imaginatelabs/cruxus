@@ -71,3 +71,6 @@ DEPENDENCIES
   rspec_junit_formatter
   rubocop
   thor
+
+BUNDLED WITH
+   1.10.0
