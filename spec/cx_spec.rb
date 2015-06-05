@@ -18,7 +18,7 @@ describe Cx::Cruxus do
       let(:version_command) { "version" }
       let(:version_desc) { "# Prints the current version of Cruxus" }
 
-      xit { is_expected.to include(help_command, help_desc, version_command, version_desc) }
+      it { is_expected.to include(help_command, help_desc, version_command, version_desc) }
     end
   end
 end
