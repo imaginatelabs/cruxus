@@ -51,7 +51,6 @@ describe StringHelper do
       end
 
       context "given the string begins with an underscores" do
-        # FIXME: this case is unlikely at this point
         let(:string) { "_this_string" }
 
         it "camelizes the string" do
