@@ -72,7 +72,7 @@ describe GitVcsActions::Git do
         .and_return(diverge_list_result)
       allow(git_vcs_client).to receive(:diverged?).and_return(diverge_result)
       allow(git_vcs_client).to receive(:checkout)
-      allow(git_vcs_client).to receive(:pull).with(main_branch, remote)
+      allow(git_vcs_client).to receive(:pull).with(remote, main_branch)
       allow(git_vcs_client).to receive(:rebase_onto).with(main_branch).and_return(merge_result)
       allow(git_vcs_client).to receive(:server_availability?).and_return(server_availability)
     end

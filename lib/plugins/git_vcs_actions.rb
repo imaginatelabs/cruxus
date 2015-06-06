@@ -65,7 +65,7 @@ module GitVcsActions
       return if changes.empty?
       @vcs.checkout main_branch
       inf "Pulling the following new commits from '#{main_branch}':\n#{changes}"
-      @vcs.pull main_branch, remote
+      @vcs.pull remote, main_branch
       @vcs.checkout working_branch
     end
 

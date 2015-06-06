@@ -24,7 +24,7 @@ module GitVcsClient
       git "fetch"
     end
 
-    def pull(branch, remote = "origin", remote_branch)
+    def pull(remote, branch, remote_branch = nil)
       git "pull #{remote} #{branch}:#{remote_branch || branch}"
     end
 
@@ -52,8 +52,8 @@ module GitVcsClient
       Process.wait(spawn("git mergetool --no-prompt"))
     end
 
-    def push(branch, remote = "origin", remote_branch)
-      `git push #{remote} #{branch}:#{remote_branch || branch}`
+    def push(remote, branch, remote_branch = nil)
+      git "push #{remote} #{branch}:#{remote_branch || branch}"
     end
 
     def delete_remote_branch(branch, remote)
