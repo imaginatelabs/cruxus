@@ -100,7 +100,7 @@ module GitVcsClient
     end
 
     def git(command)
-      `git #{command}`.strip
+      `git #{command} 2>&1`.strip
     end
 
     private
