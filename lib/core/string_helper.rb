@@ -8,6 +8,10 @@ module StringHelper
     end
     str.gsub(/(?:_|(\/))([a-z\d]*)/) { "#{Regexp.last_match[2].capitalize}" }.gsub("/", "::")
   end
+
+  def msg(default, message, delimiter = " - ")
+    message.nil? ? default : "#{message}#{delimiter}#{default}"
+  end
 end
 
 include StringHelper

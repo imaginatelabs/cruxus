@@ -3,7 +3,7 @@ require_relative "cxconf"
 
 # Base class to setup config and formatter
 class CxActionsPluginBase
-  extend Formatter
+  include Formatter
 
   def initialize(formatter, options = {}, conf = CxConf)
     @formatter = formatter

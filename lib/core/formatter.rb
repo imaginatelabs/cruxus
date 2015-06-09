@@ -16,12 +16,12 @@ module Formatter
     @formatter.err message
   end
 
-  def fatal(message, status = 1)
+  def ftl(message, status = 1)
     @formatter.ftl message
     exit status
   end
 
-  def cx_exit(message, status = 0)
+  def ext(message, status = 0)
     if status == 0
       @formatter.inf message
     else

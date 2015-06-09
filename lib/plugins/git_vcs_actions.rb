@@ -1,9 +1,12 @@
 require_relative "../core/cx_actions_plugin_base"
+require_relative "../core/string_helper"
 require_relative "git_vcs_client"
 
 module GitVcsActions
   # Provides a git implementation for a high level interaction with vcs
   class Git < CxActionsPluginBase
+    include StringHelper
+
     def initialize(vcs, formatter, options = {}, conf = CxConf)
       super(formatter, options, conf)
       @vcs = vcs
@@ -28,7 +31,7 @@ module GitVcsActions
       handle_uncommitted_changes "Couldn't retrieve latest changes"
       update_branch main_branch, remote, working_branch
       diverged = @vcs.diverged? main_branch, working_branch
-      cx_exit "'#{working_branch}' is up-to-date with '#{remote}/#{main_branch}'", 0 unless diverged
+      ext "'#{working_branch}' is up-to-date with '#{remote}/#{main_branch}'" unless diverged
       rebase_changes main_branch, working_branch
     end
 
@@ -43,7 +46,7 @@ module GitVcsActions
     def prepare_to_land_changes(main_branch, working_branch = @vcs.current_branch)
       handle_uncommitted_changes
       number_of_commits = @vcs.diverged_count main_branch, working_branch
-      info "Squashing #{number_of_commits} commits on branch '#{working_branch}'"
+      inf "Squashing #{number_of_commits} commits on branch '#{working_branch}'"
       # TODO: Change message for non-interactive squash
       @vcs.squash_branch number_of_commits, "Hard coded commit message for non-interactive squash"
     end
@@ -51,14 +54,14 @@ module GitVcsActions
     def land_changes(main_branch, working_branch = @vcs.current_branch, remote)
       handle_uncommitted_changes
       exit_when_server_unavailable remote, "Couldn't land changes"
-      info "Landing changes from #{working_branch} onto #{main_branch}"
+      inf "Landing changes from #{working_branch} onto #{main_branch}"
       @vcs.checkout main_branch
       @vcs.merge_fast_forward_only working_branch
-      debug "Pushing changes onto #{main_branch}"
+      dbg "Pushing changes onto #{main_branch}"
       @vcs.push main_branch
-      debug "Removing branch #{working_branch}"
+      dbg "Removing branch #{working_branch}"
       @vcs.delete_remote_branch working_branch, remote
-      info "Changes landed successfully onto #{main_branch}"
+      inf "Changes landed successfully onto #{main_branch}"
     end
 
     private
@@ -66,21 +69,16 @@ module GitVcsActions
     # Use this method from top public level methods
     def exit_when_server_unavailable(remote, message = nil)
       return if @vcs.server_availability? remote
-      cx_exit(error_message("Remote '#{remote}' unavailable", message), 1)
+      ftl(msg("Remote '#{remote}' unavailable", message), 1)
     end
 
     def handle_uncommitted_changes(message = nil)
       # TODO: prompt user if they should be staged and amended to commit or quit
       changes = @vcs.uncommitted_changes
       return if changes.empty?
-      cx_exit(error_message(format("Uncommitted changes found:\n   %-9s %-9s %-9s\n - %s",
-                                   "UNSTAGED", "STAGED", "FILE", changes.join("\n - ")),
-                            message),
-              1)
-    end
-
-    def error_message(default, message)
-      message.nil? ? default : "#{message} - #{default}"
+      ftl(msg(format("Uncommitted changes found:\n   %-9s %-9s %-9s\n - %s",
+                     "UNSTAGED", "STAGED", "FILE", changes.join("\n - ")),
+              message))
     end
 
     def update_branch(main_branch, remote, working_branch)

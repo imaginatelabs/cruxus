@@ -13,8 +13,8 @@ module BashBuildActions
       end
 
       unless result.exitstatus == 0
-        cx_exit "Command '#{bash_cmd}' failed with exitstatus #{result.exitstatus}",
-                result.exitstatus
+        ext "Command '#{bash_cmd}' failed with exitstatus #{result.exitstatus}",
+            result.exitstatus
       end
 
       result

@@ -14,6 +14,7 @@ describe GitVcsActions::Git do
     allow(formatter).to receive(:inf)
     allow(formatter).to receive(:wrn)
     allow(formatter).to receive(:err)
+    allow(formatter).to receive(:ftl)
     allow(GitVcsClient::Git).to receive(:new).and_return(git_vcs_client)
   end
 
@@ -83,7 +84,7 @@ describe GitVcsActions::Git do
       let(:server_availability) { false }
 
       it "exits the application" do
-        expect(formatter).to receive(:err)
+        expect(formatter).to receive(:ftl)
           .with("Couldn't retrieve latest changes - Remote 'origin' unavailable")
         expect { subject }.to raise_error SystemExit
       end
@@ -171,7 +172,7 @@ describe GitVcsActions::Git do
       end
 
       it "prints a list of uncommitted changes" do
-        expect(formatter).to receive(:err).with(
+        expect(formatter).to receive(:ftl).with(
           "Uncommitted changes found:\n"\
           "   UNSTAGED  STAGED    FILE     \n"\
           " - modified  none      foo.txt\n"\
