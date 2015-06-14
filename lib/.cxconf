@@ -13,6 +13,7 @@ vcs: &vcs
   action: git
   remote: origin
   main_branch: master
+  push_hold: false
 vcs_code_review: *vcs
 # TODO: implement - user_fork_reviews: false
 # vcs_fork_code_review

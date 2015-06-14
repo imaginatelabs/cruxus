@@ -57,6 +57,20 @@ module Cx
       vcs.submit_code_review options[:remote]
     end
 
+    desc "land", "Squashes and lands feature branch onto '#{CxConf.vcs.main_branch}'"
+    option :remote,
+           desc: "Remote server to land changes",
+           default: CxConf.vcs.remote
+    option :hold,
+           desc: "Hold from pushing changes to the remote",
+           default: CxConf.vcs.push_hold
+    def land(message = nil)
+      invoke :latest, [], {}
+      invoke :build, [], {}
+      vcs.prepare_to_land_changes message, CxConf.vcs.main_branch
+      vcs.land_changes options[:remote], CxConf.vcs.main_branch
+    end
+
     PluginLoader.find_plugin_files("workflow").each do |plugin_file|
       require plugin_file.absolute_path
       # rubocop:disable all

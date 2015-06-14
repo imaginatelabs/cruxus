@@ -12,12 +12,9 @@ module BashBuildActions
         err "#{stderr}" if stderr
       end
 
-      unless result.exitstatus == 0
-        ext "Command '#{bash_cmd}' failed with exitstatus #{result.exitstatus}",
-            result.exitstatus
-      end
+      return result if result.exitstatus == 0
 
-      result
+      ext "Command '#{bash_cmd}' failed with exitstatus #{result.exitstatus}", result.exitstatus
     end
   end
 end

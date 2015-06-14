@@ -49,7 +49,7 @@ module GitVcsClient
       git("rev-list #{base_branch}..#{commit} --count").to_i
     end
 
-    def diverge_list(base_branch, commit)
+    def diverged_list(base_branch, commit)
       git "log #{base_branch}..#{commit} --pretty=format:'- %h %s by %cN <%cE>'"
     end
 
@@ -69,17 +69,21 @@ module GitVcsClient
       git "push #{remote} #{branch}:#{remote_branch || branch}"
     end
 
+    def push(remote, branch, remote_branch = nil)
+      git "push #{remote} #{branch}:#{remote_branch || branch}"
+    end
+
     def push_force(remote, branch, remote_branch = nil)
       git "push #{remote} #{branch}:#{remote_branch || branch} --force"
     end
 
-    def delete_remote_branch(branch, remote)
+    def delete_remote_branch(remote, branch)
       delete_local_branch branch
-      `git push #{remote} :#{branch}`
+      git "push #{remote} :#{branch}"
     end
 
     def delete_local_branch(branch)
-      `git branch -D #{branch}`
+      git "branch -D #{branch}"
     end
 
     def reset_head(commit)

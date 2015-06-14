@@ -43,28 +43,36 @@ module GitVcsActions
       @vcs.push_force code_review_remote, working_branch
     end
 
-    def prepare_to_land_changes(main_branch, working_branch = @vcs.current_branch)
+    def prepare_to_land_changes(message, main_branch, working_branch = @vcs.current_branch)
       handle_uncommitted_changes
-      number_of_commits = @vcs.diverged_count main_branch, working_branch
-      inf "Squashing #{number_of_commits} commits on branch '#{working_branch}'"
-      # TODO: Change message for non-interactive squash
-      @vcs.squash_branch number_of_commits, "Hard coded commit message for non-interactive squash"
+      commit_count = @vcs.diverged_count main_branch, working_branch
+      inf "Squashing #{commit_count} commits on branch '#{working_branch}'"
+      # TODO: Open text editor to write commit message
+      @vcs.squash_branch commit_count, msg("Squashed the following #{commit_count} changes:\n"\
+                                           "#{@vcs.diverged_list main_branch, working_branch}",
+                                           message, "\n\n")
     end
 
-    def land_changes(main_branch, working_branch = @vcs.current_branch, remote)
+    def land_changes(remote, main_branch, working_branch = @vcs.current_branch)
       handle_uncommitted_changes
       exit_when_server_unavailable remote, "Couldn't land changes"
       inf "Landing changes from #{working_branch} onto #{main_branch}"
       @vcs.checkout main_branch
       @vcs.merge_fast_forward_only working_branch
-      dbg "Pushing changes onto #{main_branch}"
-      @vcs.push main_branch
-      dbg "Removing branch #{working_branch}"
-      @vcs.delete_remote_branch working_branch, remote
+      exit_on_hold
+      inf "Pushing changes onto #{main_branch}"
+      @vcs.push remote, main_branch
+      inf "Removing branch #{working_branch}"
+      @vcs.delete_remote_branch remote, working_branch
       inf "Changes landed successfully onto #{main_branch}"
     end
 
     private
+
+    def exit_on_hold
+      ext "Changes have been held from being pushed to the remote "\
+          "and need to be pushed manually" if options[:hold]
+    end
 
     # Use this method from top public level methods
     def exit_when_server_unavailable(remote, message = nil)
@@ -85,7 +93,7 @@ module GitVcsActions
       remote_branch = "#{remote}/#{main_branch}"
       inf "Checking for new commits on '#{remote_branch}'"
       @vcs.fetch
-      changes = @vcs.diverge_list main_branch, "#{remote_branch}"
+      changes = @vcs.diverged_list main_branch, "#{remote_branch}"
       return if changes.empty?
       @vcs.checkout main_branch
       inf "Pulling the following new commits from '#{main_branch}':\n#{changes}"
@@ -94,7 +102,7 @@ module GitVcsActions
     end
 
     def rebase_changes(main_branch, working_branch)
-      changes = @vcs.diverge_list main_branch, working_branch
+      changes = @vcs.diverged_list main_branch, working_branch
       inf "Rebasing changes from '#{working_branch}' onto '#{main_branch}'\n#{changes}"
       rebase_success = @vcs.rebase_onto(main_branch)
       until rebase_success

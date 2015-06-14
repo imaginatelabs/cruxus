@@ -5,6 +5,8 @@ require_relative "cxconf"
 class CxActionsPluginBase
   include Formatter
 
+  attr_reader :formatter, :options, :conf
+
   def initialize(formatter, options = {}, conf = CxConf)
     @formatter = formatter
     @options = options
