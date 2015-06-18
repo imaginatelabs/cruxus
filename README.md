@@ -25,6 +25,10 @@ Land your changes from your feature branch onto the main branch.
 
 `cx land`
 
+### Help
+Learn more about cx commands by using help
+
+`cx help`
 
 ## Coming soon
 ### Working with Micro-Services
@@ -50,12 +54,16 @@ Share it on twitter [@ImaginateLabs](https://www.twitter.com/ImaginateLabs) #cru
 Come chat about it on our [Gitter channel](https://gitter.im/imaginatelabs/cruxus)
 
 ## Setup
-1. Clone this repository
-2. Add cruxus to your path e.g. 
+1. Clone and checkout `stable` for the latest stable release version from this repository.
+   Note: checkout `master` to get the latest changes
+2. You will need Ruby-2.1 and Bundler installed
+3. Run `bundle install` to get all the gems you need
+4. Add cruxus to your path e.g. 
   `export PATH=$PATH:/path/to/cruxus/lib`
+5. Run `cx` to test installation
 
 Note: Cruxus requires Ruby 2.1 if you're using rvm or chruby there's a ruby version in the repo that 
-will automatically set Ruby to the right version for you 
+will automatically set Ruby to the right version for you!
 
 ## Configuration
 Curxus can be configured by placing a ".cxconf" in the root of your project. 
