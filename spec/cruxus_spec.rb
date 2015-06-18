@@ -22,10 +22,10 @@ describe Cx::Cruxus do
     subject { output }
 
     context "with no command line args" do
-      let(:help_command) { "help [COMMAND]" }
+      let(:help_command) { "help     [COMMAND]" }
       let(:help_desc) { "# Describe available commands or one specific command" }
       let(:version_command) { "version" }
-      let(:version_desc) { "# Prints the current version of Cruxus" }
+      let(:version_desc) { "# Prints the current version of Cruxus. (Aliases: --version, -v)" }
 
       it { is_expected.to include(help_command, help_desc, version_command, version_desc) }
     end
