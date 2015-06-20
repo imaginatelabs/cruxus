@@ -2,6 +2,7 @@ require_relative "core/cxconf"
 require_relative "core/plugin_loader"
 require_relative "core/cx_workflow_plugin_base"
 require_relative "core/commands/version_cmd"
+require_relative "core/commands/feature_cmd"
 
 module Cx
   # Entry point to the application
@@ -26,21 +27,12 @@ module Cx
                              group: "logging"
 
     include VersionCmd
+    include FeatureCmd
 
     desc format(FMT, "help", "[COMMAND]"),
          "Describe available commands or one specific command"
     def help(command = nil, subcommand = false)
       super command, subcommand
-    end
-
-    desc format(FMT, "feature", "FEATURE_NAME [-s]"),
-         "Creates a feature branch for you to develop your changes"
-    option :start_commit,
-           desc: "Commit you want to branch from",
-           aliases: "-s",
-           default: "HEAD"
-    def feature(feature_name)
-      vcs.start_new_feature options[:start_commit], feature_name
     end
 
     desc format(FMT, "latest", "[MAIN_BRANCH]"),
