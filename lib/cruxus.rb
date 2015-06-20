@@ -1,6 +1,7 @@
 require_relative "core/cxconf"
 require_relative "core/plugin_loader"
 require_relative "core/cx_workflow_plugin_base"
+require_relative "core/commands/version_cmd"
 
 module Cx
   # Entry point to the application
@@ -24,14 +25,7 @@ module Cx
                              banner: CxConf.log.level_options.join("|"),
                              group: "logging"
 
-    desc "version",
-         "Prints the current version of Cruxus. (Aliases: --version, -v)"
-    map "-v" => "version",
-        "--version" => "version"
-    long_desc "Prints the current version of Cruxus."
-    def version
-      inf(CxConf.version)
-    end
+    include VersionCmd
 
     desc format(FMT, "help", "[COMMAND]"),
          "Describe available commands or one specific command"
