@@ -3,6 +3,7 @@ require_relative "core/plugin_loader"
 require_relative "core/cx_workflow_plugin_base"
 require_relative "core/commands/version_cmd"
 require_relative "core/commands/feature_cmd"
+require_relative "core/commands/latest_cmd"
 
 module Cx
   # Entry point to the application
@@ -28,17 +29,12 @@ module Cx
 
     include VersionCmd
     include FeatureCmd
+    include LatestCmd
 
     desc format(FMT, "help", "[COMMAND]"),
          "Describe available commands or one specific command"
     def help(command = nil, subcommand = false)
       super command, subcommand
-    end
-
-    desc format(FMT, "latest", "[MAIN_BRANCH]"),
-         "Pull changes from the main branch into current branch"
-    def latest(main_branch = CxConf.vcs.main_branch)
-      vcs.latest_changes main_branch
     end
 
     desc "build", "Run the build"

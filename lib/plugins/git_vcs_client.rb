@@ -100,6 +100,7 @@ module GitVcsClient
     end
 
     def server_availability?(remote)
+      # TODO: Check for positive case instead
       !git("ls-remote #{remote}").include? "fatal: unable to access"
     end
 
