@@ -5,29 +5,12 @@ require_relative "core/commands/version_cmd"
 require_relative "core/commands/feature_cmd"
 require_relative "core/commands/latest_cmd"
 require_relative "core/workflow_loader"
+require_relative "core/logging_options"
 
 module Cx
   # Entry point to the application
   class Cruxus < CxWorkflowPluginBase
-    # Logging options
-    class_option :log_file, desc: "File output is logged to.",
-                            aliases: "-F",
-                            default: false,
-                            banner: "/path/to/log/file.log|(blank=cruxus.log)",
-                            group: "logging"
-
-    class_option :output_formatter, desc: "File format for log output.",
-                                    aliases: "-O",
-                                    default: CxConf.log.formatter,
-                                    banner: CxConf.log.formatter_options.join("|"),
-                                    group: "logging"
-
-    class_option :log_level, desc: "Level at which output is displayed.",
-                             aliases: "-L",
-                             default: CxConf.log.level,
-                             banner: CxConf.log.level_options.join("|"),
-                             group: "logging"
-
+    include LoggingOptions
     include VersionCmd
     include FeatureCmd
     include LatestCmd
