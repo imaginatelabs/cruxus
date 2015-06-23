@@ -4,6 +4,7 @@ require_relative "core/cx_workflow_plugin_base"
 require_relative "core/commands/version_cmd"
 require_relative "core/commands/feature_cmd"
 require_relative "core/commands/latest_cmd"
+require_relative "core/workflow_loader"
 
 module Cx
   # Entry point to the application
@@ -70,13 +71,6 @@ module Cx
       vcs.land_changes options[:remote], CxConf.vcs.main_branch
     end
 
-    PluginLoader.find_plugin_files("workflow").each do |plugin_file|
-      require plugin_file.absolute_path
-      # rubocop:disable all
-      eval("extend #{plugin_file.plugin_name}")
-      eval("desc format(FMT, '#{plugin_file.instance_name.downcase}','[COMMAND] [ARGS]'), '#{eval("#{plugin_file.module_class_name}.help_text")}'")
-      eval("subcommand '#{plugin_file.instance_name.downcase}', #{plugin_file.module_class_name}")
-      # rubocop:enable all
-    end
+    include WorkflowLoader
   end
 end
