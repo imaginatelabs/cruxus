@@ -5,6 +5,7 @@ require_relative "core/commands/version_cmd"
 require_relative "core/commands/feature_cmd"
 require_relative "core/commands/latest_cmd"
 require_relative "core/commands/build_cmd"
+require_relative "core/commands/review_cmd"
 require_relative "core/workflow_loader"
 require_relative "core/logging_options"
 
@@ -16,22 +17,12 @@ module Cx
     include FeatureCmd
     include LatestCmd
     include BuildCmd
+    include ReviewCmd
 
     desc format(FMT, "help", "[COMMAND]"),
          "Describe available commands or one specific command"
     def help(command = nil, subcommand = false)
       super command, subcommand
-    end
-
-    desc format(FMT, "review", "[-r]"), "Creates and submits a code review"
-    option :remote,
-           desc: "Remote server to submit code review",
-           aliases: "-r",
-           default: CxConf.vcs_code_review.remote
-    def review
-      invoke :latest
-      invoke :build
-      vcs.submit_code_review options[:remote]
     end
 
     desc format(FMT, "land", "[COMMIT_MESSAGE] [-rh]"),
