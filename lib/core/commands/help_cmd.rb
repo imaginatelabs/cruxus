@@ -9,7 +9,7 @@ module HelpCmd
       extend FormatHelper
 
       thor.desc fmt("help", "[COMMAND]"),
-           "Describe available commands or one specific command"
+                "Describe available commands or one specific command"
       def help(command = nil, subcommand = false)
         super command, subcommand
       end

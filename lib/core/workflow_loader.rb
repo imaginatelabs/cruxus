@@ -1,5 +1,6 @@
 require "thor"
 require_relative "format_helper"
+require_relative "plugin_loader"
 
 # Specifies the version command
 # rubocop:disable all

@@ -2,7 +2,7 @@ require "thor"
 require_relative "../format_helper"
 
 # Specifies the version command
-# rubocop:disable Metrics/MethodLength
+# rubocop:disable all
 module LandCmd
   def self.included(thor)
     thor.class_eval do
@@ -32,4 +32,4 @@ module LandCmd
     end
   end
 end
-# rubocop:enable Metrics/MethodLength
+# rubocop:enable all
