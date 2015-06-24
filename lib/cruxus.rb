@@ -4,6 +4,7 @@ require_relative "core/cx_workflow_plugin_base"
 require_relative "core/commands/version_cmd"
 require_relative "core/commands/feature_cmd"
 require_relative "core/commands/latest_cmd"
+require_relative "core/commands/build_cmd"
 require_relative "core/workflow_loader"
 require_relative "core/logging_options"
 
@@ -14,16 +15,12 @@ module Cx
     include VersionCmd
     include FeatureCmd
     include LatestCmd
+    include BuildCmd
 
     desc format(FMT, "help", "[COMMAND]"),
          "Describe available commands or one specific command"
     def help(command = nil, subcommand = false)
       super command, subcommand
-    end
-
-    desc "build", "Run the build"
-    def build
-      bld.cmd CxConf.build.cmd
     end
 
     desc format(FMT, "review", "[-r]"), "Creates and submits a code review"
