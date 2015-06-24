@@ -7,6 +7,7 @@ require_relative "core/commands/latest_cmd"
 require_relative "core/commands/build_cmd"
 require_relative "core/commands/review_cmd"
 require_relative "core/commands/land_cmd"
+require_relative "core/commands/help_cmd"
 require_relative "core/workflow_loader"
 require_relative "core/logging_options"
 
@@ -20,12 +21,7 @@ module Cx
     include BuildCmd
     include ReviewCmd
     include LandCmd
+    include HelpCmd
     include WorkflowLoader
-
-    desc format(FMT, "help", "[COMMAND]"),
-         "Describe available commands or one specific command"
-    def help(command = nil, subcommand = false)
-      super command, subcommand
-    end
   end
 end
