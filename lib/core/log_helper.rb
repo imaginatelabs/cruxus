@@ -32,6 +32,11 @@ module LogHelper
   # Unused variables are made available for the output formatters
   def output_formatter(format, plugin_name)
     proc do |severity, datetime, progname, msg|
+      # Requiring time fixes a bug where not
+      # all Time methods where available such
+      # as iso8601 used in the default .cxconf
+      require 'time'
+
       pid = Process.pid
       severity_id = severity[0]
       severity_label = severity
