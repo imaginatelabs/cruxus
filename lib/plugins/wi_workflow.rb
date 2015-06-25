@@ -7,7 +7,7 @@ module WiWorkflow
 
     default_command :feedback
 
-    desc "feedback", "Give us your feedback on this idea"
+    descf "feedback", nil, "Give us your feedback on this idea"
     def feedback
       invoke :help
       inf "If you think this would be a good idea, let us know by telling us on:\n"\
@@ -15,32 +15,32 @@ module WiWorkflow
           " - Come chat about it on our Gitter channel https://gitter.im/imaginatelabs/cruxus\n"
     end
 
-    desc "new DESCRIPTION", "Create new work item"
+    descf "new", "DESCRIPTION", "Create new work item"
     def new(_description)
       invoke_feedback
     end
 
-    desc "start ID", "Start working on a work item"
+    descf "start", "ID", "Start working on a work item"
     def start(_id)
       invoke_feedback
     end
 
-    desc "show [QUERY]", "Show all work items"
+    descf "show", "[QUERY]", "Show all work items"
     def show(_query = nil)
       invoke_feedback
     end
 
-    desc "close ID [COMMENT]", "Close a work item by id"
+    descf "close", "ID [COMMENT]", "Close a work item by id"
     def close(_id, _comment = nil)
       invoke_feedback
     end
 
-    desc "comments ID", "Show all comments"
+    descf "comments", "ID", "Show all comments"
     def comments(_id)
       invoke_feedback
     end
 
-    desc "comment ID COMMENT", "Comment on a work item"
+    descf "comment", "ID COMMENT", "Comment on a work item"
     def comment(_id, _comment)
       invoke_feedback
     end

@@ -1,20 +1,18 @@
 require "thor"
-require_relative "../format_helper"
 
 # Specifies the version command
 # rubocop:disable Metrics/MethodLength
 module ReviewCmd
   def self.included(thor)
     thor.class_eval do
-      extend FormatHelper
-
-      thor.long_desc <<-LONGDESC
+      long_desc <<-LONGDESC
 
         Creates and submits a code review
+
       LONGDESC
 
-      thor.desc fmt("review", "[-r]"),
-                "Creates and submits a code review"
+      descf "review", "[-r]",
+            "Creates and submits a code review"
       option :remote,
              desc: "Remote server to submit code review",
              aliases: "-r",

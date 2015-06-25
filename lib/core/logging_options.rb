@@ -1,5 +1,4 @@
 require "thor"
-require_relative "format_helper"
 
 # Specify options for logging
 # rubocop:disable Metrics/MethodLength

@@ -13,12 +13,12 @@ module ConfWorkflow
       @actions = ConfWorkflow::ConfActions.new
     end
 
-    desc "select [REGEX]", "Returns keys and values matching the regex"
+    descf "select", "[REGEX]", "Returns keys and values matching the regex"
     def select(regex = "")
       (@actions.select(regex)).each { |k, v| inf("#{k}: #{v}") }
     end
 
-    desc "key [KEY]", "Returns the value of the configuration key"
+    descf "key", "[KEY]", "Returns the value of the configuration key"
     def key(key)
       inf(@actions.key(key))
     end

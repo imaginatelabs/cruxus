@@ -1,14 +1,11 @@
 require "thor"
-require_relative "../format_helper"
 
 # Specifies the version command
 # rubocop:disable Metrics/MethodLength
 module LatestCmd
   def self.included(thor)
     thor.class_eval do
-      extend FormatHelper
-
-      thor.long_desc <<-LONGDESC
+      long_desc <<-LONGDESC
 
         Pull changes from the main branch into current branch
 
@@ -21,11 +18,11 @@ module LatestCmd
         - Tell us on Twitter @ImaginateLabs
 
         - Come chat about it on our Gitter channel https://gitter.im/imaginatelabs/cruxus
+
       LONGDESC
 
-      thor.desc fmt("latest", "[MAIN_BRANCH]"),
-                "Pull changes from the main branch into current branch"
-
+      descf "latest", "[MAIN_BRANCH]",
+            "Pull changes from the main branch into current branch"
       def latest(main_branch = CxConf.vcs.main_branch)
         vcs.latest_changes main_branch
       end

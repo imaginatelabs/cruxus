@@ -1,20 +1,19 @@
 require "thor"
-require_relative "../format_helper"
 
 # Specifies the version command
 # rubocop:disable all
 module LandCmd
   def self.included(thor)
     thor.class_eval do
-      extend FormatHelper
-
-      thor.long_desc <<-LONGDESC
+      long_desc <<-LONGDESC
 
         Squashes and lands feature branch onto '#{CxConf.vcs.main_branch}'
+
       LONGDESC
 
-      thor.desc fmt("land", "[COMMIT_MESSAGE] [-rh]"),
-                "Squashes and lands feature branch onto '#{CxConf.vcs.main_branch}'"
+      descf "land",
+            "[COMMIT_MESSAGE] [-rh]",
+            "Squashes and lands feature branch onto '#{CxConf.vcs.main_branch}'"
       option :remote,
              desc: "Remote server to land changes",
              aliases: "-r",
