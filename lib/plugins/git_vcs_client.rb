@@ -1,10 +1,10 @@
-require_relative "../core/cmd"
+require_relative "../core/shell"
 require_relative "../core/vcs_file"
 
 module GitVcsClient
   # Wrapper around the git commands
   class Git
-    extend Cmd
+    extend Shell
     def branch_locally(start_commit, branch_name)
       git "branch #{branch_name} #{start_commit}"
     end

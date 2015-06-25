@@ -1,11 +1,11 @@
 require_relative "../core/cx_actions_plugin_base"
 require_relative "../core/cxconf"
-require_relative "../core/cmd"
+require_relative "../core/shell"
 
 module BashBuildActions
   # Run build commands from bash
   class Bash < CxActionsPluginBase
-    extend Cmd
+    extend Shell
     def cmd(bash_cmd)
       result = run bash_cmd do | stdout, stderr, _thread|
         inf "#{stdout}" if stdout

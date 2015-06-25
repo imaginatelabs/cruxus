@@ -1,9 +1,9 @@
 require "rspec"
-require_relative "../../lib/core/cmd"
+require_relative "../../lib/core/shell"
 
-describe Cmd do
+describe Shell do
   describe ".run" do
-    let(:cmd) { Cmd }
+    let(:cmd) { Shell }
     subject { cmd.run bash_cmd }
 
     context "given the bash command 'echo'" do
