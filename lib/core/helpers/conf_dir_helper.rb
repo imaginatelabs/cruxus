@@ -2,7 +2,7 @@ require "yaml"
 require "confstruct"
 require "env"
 require "os"
-require_relative "plugin_file"
+require_relative "../plugin_file"
 
 # ConfDirHelper - Utility methods for managing configuration
 module ConfDirHelper
@@ -26,7 +26,7 @@ module ConfDirHelper
   end
 
   def cx_dir
-    File.absolute_path(File.dirname(__FILE__) + "/../")
+    File.absolute_path(File.dirname(__FILE__) + "/../../")
   end
 
   def working_dir

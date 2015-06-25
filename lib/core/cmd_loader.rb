@@ -1,5 +1,5 @@
 require "thor"
-require_relative "file_helper"
+require_relative "helpers/file_helper"
 
 # Specifies the version command
 # rubocop:disable all

@@ -1,5 +1,5 @@
 require "logger"
-require_relative "../core/log_helper"
+require_relative "../core/helpers/log_helper"
 # Formats output as plain text
 module PlainFormatter
   include LogHelper

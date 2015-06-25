@@ -1,7 +1,7 @@
 require "rspec"
 require "confstruct"
 require "logger"
-require_relative "../../lib/core/log_helper"
+require_relative "../../lib/core/helpers/log_helper"
 
 describe LogHelper do
   describe "#log_file_path" do

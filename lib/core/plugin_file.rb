@@ -1,5 +1,5 @@
-require_relative "conf_dir_helper"
-require_relative "string_helper"
+require_relative "helpers/conf_dir_helper"
+require_relative "helpers/string_helper"
 
 # Represents the
 class PluginFile

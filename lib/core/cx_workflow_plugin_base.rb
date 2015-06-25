@@ -1,7 +1,7 @@
 require "thor"
 require_relative "cxconf"
 require_relative "formatter"
-require_relative "log_helper"
+require_relative "helpers/log_helper"
 
 # Base class for all workflow plugins
 class CxWorkflowPluginBase < Thor

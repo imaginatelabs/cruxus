@@ -1,6 +1,6 @@
 require "confstruct"
 require "singleton"
-require_relative "conf_dir_helper"
+require_relative "helpers/conf_dir_helper"
 
 include Confstruct
 

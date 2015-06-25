@@ -1,5 +1,5 @@
 require "rspec"
-require_relative "../../../lib/core/conf_dir_helper"
+require_relative "../../../lib/core/helpers/conf_dir_helper"
 
 describe ".cxconf" do
   let(:conf) { ConfDirHelper.load_config_files ["lib/.cxconf"] }

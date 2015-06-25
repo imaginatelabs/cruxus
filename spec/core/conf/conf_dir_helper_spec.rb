@@ -1,5 +1,5 @@
 require "rspec"
-require_relative "../../../lib/core/conf_dir_helper"
+require_relative "../../../lib/core/helpers/conf_dir_helper"
 
 describe ConfDirHelper do
   let(:conf_dir_helper) { ConfDirHelper }

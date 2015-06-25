@@ -1,5 +1,5 @@
 require "rspec"
-require_relative "../../lib/core/file_helper"
+require_relative "../../lib/core/helpers/file_helper"
 
 describe FileHelper do
   let(:file_helper) { FileHelper }

@@ -1,5 +1,5 @@
-require_relative "cxconf"
-require_relative "plugin_loader"
+require_relative "../cxconf"
+require_relative "../plugin_loader"
 
 # Helper for setting up logging
 module LogHelper

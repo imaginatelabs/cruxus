@@ -1,5 +1,5 @@
 require "rspec"
-require_relative "../../lib/core/string_helper"
+require_relative "../../lib/core/helpers/string_helper"
 
 describe StringHelper do
   describe "#camelize" do

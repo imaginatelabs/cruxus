@@ -1,4 +1,5 @@
 require "thor"
+require_relative "cxconf"
 
 # Specify options for logging
 # rubocop:disable Metrics/MethodLength
