@@ -1,5 +1,5 @@
-require_relative "helpers/file_helper"
-require_relative "helpers/string_helper"
+require_relative "../helpers/file_helper"
+require_relative "../helpers/string_helper"
 
 # Manages the detection of plugins
 module PluginLoader

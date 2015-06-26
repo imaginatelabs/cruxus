@@ -1,5 +1,5 @@
 require "rspec"
-require_relative "../../lib/core/plugin_loader"
+require_relative "../../lib/core/loaders/plugin_loader"
 
 describe PluginLoader do
   let(:plugin_manager) { PluginLoader }
