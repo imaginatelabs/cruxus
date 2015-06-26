@@ -3,12 +3,12 @@ require_relative "helpers/file_helper"
 
 # Specifies the version command
 # rubocop:disable all
-module CmdLoader
+module CommandLoader
   def self.included(thor)
     thor.class_eval do
-      FileHelper.files("core/commands/", "**/*_cmd.rb").each do |file|
-        require file
-        eval "include #{StringHelper.camelize File.basename(file, ".rb")}"
+      PluginLoader.find_plugin_files("command").each do |plugin_file|
+        require plugin_file.absolute_path
+        eval "include #{plugin_file.plugin_name}"
       end
     end
   end

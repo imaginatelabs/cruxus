@@ -2,7 +2,7 @@ require "thor"
 
 # Specifies the version command
 # rubocop:disable all
-module LandCmd
+module LandCommand
   def self.included(thor)
     thor.class_eval do
       long_desc <<-LONGDESC

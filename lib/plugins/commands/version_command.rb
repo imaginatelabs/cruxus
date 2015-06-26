@@ -1,7 +1,7 @@
 require "thor"
 
 # Specifies the version command
-module VersionCmd
+module VersionCommand
   def self.included(thor)
     thor.class_eval do
       long_desc <<-LONGDESC
