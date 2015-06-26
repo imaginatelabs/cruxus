@@ -1,6 +1,6 @@
 require "rspec"
 require_relative "../helpers/response_helper"
-require_relative "../../lib/core/rest_client"
+require_relative "../../lib/plugins/clients/rest_client"
 
 include ResponseHelper
 

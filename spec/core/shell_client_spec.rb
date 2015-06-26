@@ -1,9 +1,9 @@
 require "rspec"
-require_relative "../../lib/core/shell"
+require_relative "../../lib/plugins/clients/shell_client"
 
-describe Shell do
+describe ShellClient do
   describe ".run" do
-    let(:cmd) { Shell }
+    let(:cmd) { ShellClient }
     subject { cmd.run bash_cmd }
 
     context "given the bash command 'echo'" do

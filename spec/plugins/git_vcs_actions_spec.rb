@@ -1,6 +1,6 @@
 require "rspec"
 require_relative "../../lib/plugins/git_vcs_actions"
-require_relative "../../lib/plugins/git_vcs_client"
+require_relative "../../lib/plugins/clients/git_vcs_client"
 require_relative "../../lib/core/cxconf"
 
 describe GitVcsActions::Git do

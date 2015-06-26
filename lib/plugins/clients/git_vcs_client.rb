@@ -1,10 +1,11 @@
-require_relative "../core/shell"
-require_relative "../core/vcs_file"
+require_relative "../../plugins/clients/shell_client"
+require_relative "../../core/vcs_file"
 
 module GitVcsClient
   # Wrapper around the git commands
   class Git
-    extend Shell
+    extend ShellClient
+
     def branch_locally(start_commit, branch_name)
       git "branch #{branch_name} #{start_commit}"
     end

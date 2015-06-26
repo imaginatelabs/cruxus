@@ -1,6 +1,6 @@
 require_relative "../core/cx_actions_plugin_base"
 require_relative "../core/helpers/string_helper"
-require_relative "git_vcs_client"
+require_relative "clients/git_vcs_client"
 
 module GitVcsActions
   # Provides a git implementation for a high level interaction with vcs

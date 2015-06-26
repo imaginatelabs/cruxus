@@ -1,5 +1,5 @@
 require "rspec"
-require_relative "../../lib/plugins/git_vcs_client"
+require_relative "../../lib/plugins/clients/git_vcs_client"
 
 describe GitVcsClient::Git do
   let(:git) { GitVcsClient::Git.new }

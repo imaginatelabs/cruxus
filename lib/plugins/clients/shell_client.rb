@@ -2,7 +2,7 @@ require "open3"
 require "ostruct"
 
 # Manages interaction with the command line
-module Shell
+module ShellClient
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize:
   def run(cmd, &_block)
     stdout_a, stderr_a, stdin_a, result = [], [], [], {}
@@ -44,4 +44,4 @@ module Shell
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize:
 end
 
-include Shell
+include ShellClient
