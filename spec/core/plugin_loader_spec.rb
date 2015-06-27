@@ -71,12 +71,12 @@ describe PluginLoader do
     describe "#load_plugin" do
       context "given a plugin exists" do
         subject do
-          plugin_manager.load_plugin("my_plugin", "test", "my_formatter", "my_options", "my_conf")
+          plugin_manager.load_plugin("my_plugin", "test", "my_logger", "my_options", "my_conf")
         end
 
         it "load plugin into file" do
           plugin = subject
-          expect(plugin.formatter).to eq("my_formatter")
+          expect(plugin.logger).to eq("my_logger")
           expect(plugin.options).to eq("my_options")
           expect(plugin.conf).to eq("my_conf")
         end
@@ -84,7 +84,7 @@ describe PluginLoader do
 
       context "given a plugin doesn't exists" do
         subject do
-          plugin_manager.load_plugin("no_plugin", "test", "my_formatter", "my_options", "my_conf")
+          plugin_manager.load_plugin("no_plugin", "test", "my_logger", "my_options", "my_conf")
         end
 
         it { is_expected.to eq nil }

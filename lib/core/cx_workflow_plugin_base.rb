@@ -1,13 +1,13 @@
 require "thor"
 require_relative "cxconf"
-require_relative "formatter"
+require_relative "logging_wrapper"
 require_relative "helpers/log_helper"
 
 # Base class for all workflow plugins
 class CxWorkflowPluginBase < Thor
   def initialize(args = [], options = {}, config = {})
     super(args, options, config)
-    @formatter = LogHelper.load_formatter(self.class.name, @options)
+    @logger = LogHelper.load_logger(self.class.name, @options)
   end
 
   DESCF_FORMAT = "%-8s %s"
@@ -44,15 +44,15 @@ class CxWorkflowPluginBase < Thor
   end
 
   no_commands do
-    extend Formatter
+    extend LoggingWrapper
     def vcs
       @vcs ||= PluginLoader.load_plugin CxConf.vcs.action, "vcs_actions",
-                                        @formatter, options, CxConf
+                                        @logger, options, CxConf
     end
 
     def bld
       @build ||= PluginLoader.load_plugin CxConf.build.action, "build_actions",
-                                          @formatter, options, CxConf
+                                          @logger, options, CxConf
     end
   end
 end

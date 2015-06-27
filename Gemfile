@@ -6,10 +6,7 @@ gem "confstruct"
 gem "env"
 gem "os"
 gem "oga"
-
-group :development do
-  gem "pry"
-end
+gem "pry-byebug"
 
 group :test do
   gem "rspec"

@@ -7,13 +7,13 @@ module GitVcsActions
   class Git < CxActionsPluginBase
     include StringHelper
 
-    def initialize(vcs, formatter, options = {}, conf = CxConf)
-      super(formatter, options, conf)
+    def initialize(vcs, logger, options = {}, conf = CxConf)
+      super(logger, options, conf)
       @vcs = vcs
     end
 
-    def self.generate(formatter, options = {}, conf = CxConf)
-      new GitVcsClient::Git.new, formatter,  options, conf
+    def self.generate(logger, options = {}, conf = CxConf)
+      new GitVcsClient::Git.new, logger,  options, conf
     end
 
     def start_new_feature(start_commit, feature_name)

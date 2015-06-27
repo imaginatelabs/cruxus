@@ -21,15 +21,8 @@ module LogHelper
     log_file ? conf.log.file.message_format : conf.log.message_format
   end
 
-  def logger(std, log_file, log_level, formatter)
-    log = log_file || Logger.new(std)
-    log.level = log_level
-    log.formatter = formatter
-    log
-  end
-
   # rubocop:disable all
-  # Unused variables are made available for the output formatters
+  # Unused variables are made available for the output formatting
   def output_formatter(format, plugin_name)
     proc do |severity, datetime, progname, msg|
       # Requiring time fixes a bug where not
@@ -45,15 +38,15 @@ module LogHelper
   end
   # rubocop:enable all
 
-  def load_formatter(class_name, options)
-    PluginLoader.find_plugin_files("formatter").each do |plugin_file|
-      next unless plugin_file.instance_name.downcase == options[:output_formatter]
+  def load_logger(class_name, options)
+    PluginLoader.find_plugin_files("logger").each do |plugin_file|
+      next unless plugin_file.instance_name.downcase == options[:output_format]
       require plugin_file.absolute_path
-      return formatter(plugin_file, class_name, options)
+      return initialize_logger(plugin_file, class_name, options)
     end
   end
 
-  def formatter(plugin_file, class_name, options)
+  def initialize_logger(plugin_file, class_name, options)
     # rubocop:disable all
     return eval(plugin_file.module_class_name).new(class_name, options)
     # rubocop:enable all

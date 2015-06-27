@@ -1,16 +1,16 @@
 module MyPluginTest
   # A stub plugin for testing
   class MyPlugin
-    attr_accessor :formatter, :options, :conf
+    attr_accessor :logger, :options, :conf
 
-    def initialize(formatter, options, conf)
-      @formatter = formatter
+    def initialize(logger, options, conf)
+      @logger = logger
       @options = options
       @conf = conf
     end
 
-    def self.generate(formatter, options, conf)
-      new formatter, options, conf
+    def self.generate(logger, options, conf)
+      new logger, options, conf
     end
   end
 end

@@ -1,17 +1,17 @@
 require "logger"
 require_relative "../core/helpers/log_helper"
 # Formats output as plain text
-module PlainFormatter
+module PlainLogger
   include LogHelper
-  # Plain formatter
+  # Plain logger
   class Plain
     def initialize(plugin_name, options)
       path = LogHelper.log_file_path(options[:log_file])
       log_file = path ? Logger.new(path) : nil
       log_level = LogHelper.parse_log_level(options[:log_level])
       formatter = LogHelper.output_formatter(LogHelper.output_format(log_file), plugin_name)
-      @out_log = LogHelper.logger(STDOUT, log_file, log_level, formatter)
-      @err_log = LogHelper.logger(STDERR, log_file, log_level, formatter)
+      @out_log = logger(STDOUT, log_file, log_level, formatter)
+      @err_log = logger(STDERR, log_file, log_level, formatter)
     end
 
     def dbg(message)
@@ -52,6 +52,15 @@ module PlainFormatter
 
     def ftl?
       @err_log.fatal?
+    end
+
+    private
+
+    def logger(std, log_file, log_level, formatter)
+      log = log_file || Logger.new(std)
+      log.level = log_level
+      log.formatter = formatter
+      log
     end
   end
 end

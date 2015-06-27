@@ -121,8 +121,7 @@ describe LogHelper do
   # rubocop:disable all
   describe "#output_formatter" do
     subject do
-      LogHelper.output_formatter(format, plugin_name)
-          .call(severity,datetime,progname,msg)
+      LogHelper.output_formatter(format, plugin_name).call(severity,datetime,progname,msg)
     end
 
     msg = "the message"
@@ -159,33 +158,4 @@ describe LogHelper do
     end
   end
   # rubocop:enable all
-
-  describe "#logger" do
-    subject { LogHelper.logger(std, log_file, log_level, formatter) }
-
-    let(:std) { STDOUT }
-    let(:log_level) { Logger::Severity::INFO }
-    let(:formatter) { true }
-
-    LOG_FILE_NAME = "test.log"
-    context "given a non nil log_file" do
-      let(:log_file) { Logger.new(LOG_FILE_NAME) }
-
-      it "returns the file based logger passed in" do
-        expect(subject).to eq(log_file)
-      end
-    end
-
-    context "given a non nil log_file" do
-      let(:log_file) { nil }
-
-      it "returns a new logger" do
-        expect(subject.is_a? Logger).to eq(true)
-      end
-    end
-
-    after do
-      FileUtils.rm LOG_FILE_NAME, force: true
-    end
-  end
 end

@@ -4,8 +4,8 @@ require_relative "../../lib/plugins/clients/git_vcs_client"
 require_relative "../../lib/core/cxconf"
 
 describe GitVcsActions::Git do
-  let(:git_vcs_actions) { GitVcsActions::Git.generate(formatter, options, conf) }
-  let(:formatter) { true }
+  let(:git_vcs_actions) { GitVcsActions::Git.generate(logger, options, conf) }
+  let(:logger) { true }
   let(:options) { {} }
   let(:conf) { CxConf }
   let(:git_vcs_client) { true }
@@ -27,10 +27,10 @@ describe GitVcsActions::Git do
   end
 
   before do
-    allow(formatter).to receive(:inf)
-    allow(formatter).to receive(:wrn)
-    allow(formatter).to receive(:err)
-    allow(formatter).to receive(:ftl)
+    allow(logger).to receive(:inf)
+    allow(logger).to receive(:wrn)
+    allow(logger).to receive(:err)
+    allow(logger).to receive(:ftl)
     allow(GitVcsClient::Git).to receive(:new).and_return(git_vcs_client)
   end
 
@@ -100,7 +100,7 @@ describe GitVcsActions::Git do
       let(:server_availability) { false }
 
       it "exits the application" do
-        expect(formatter).to receive(:ftl)
+        expect(logger).to receive(:ftl)
           .with("Couldn't retrieve latest changes - Remote 'origin' unavailable")
         expect { subject }.to raise_error SystemExit
       end
@@ -179,7 +179,7 @@ describe GitVcsActions::Git do
       end
 
       it "prints a list of uncommitted changes" do
-        expect(formatter).to receive(:ftl).with(uncommitted_changes_output)
+        expect(logger).to receive(:ftl).with(uncommitted_changes_output)
         expect { subject }.to raise_error SystemExit
       end
     end
@@ -232,7 +232,7 @@ describe GitVcsActions::Git do
       end
 
       it "prints a list of uncommitted changes" do
-        expect(formatter).to receive(:ftl).with(uncommitted_changes_output)
+        expect(logger).to receive(:ftl).with(uncommitted_changes_output)
         expect { subject }.to raise_error SystemExit
       end
     end
@@ -249,7 +249,7 @@ describe GitVcsActions::Git do
       before { subject }
 
       it "prints a message with the details of the squash" do
-        expect(formatter).to have_received(:inf).with("Squashing 3 commits on branch 'develop'")
+        expect(logger).to have_received(:inf).with("Squashing 3 commits on branch 'develop'")
       end
 
       context "given a commit message" do
@@ -293,7 +293,7 @@ describe GitVcsActions::Git do
       let(:uncommitted_changes) { [] }
 
       it "exits the application" do
-        expect(formatter).to receive(:ftl)
+        expect(logger).to receive(:ftl)
           .with("Couldn't land changes - Remote 'origin' unavailable")
         expect { subject }.to raise_error SystemExit
       end
@@ -310,7 +310,7 @@ describe GitVcsActions::Git do
       end
 
       it "prints a list of uncommitted changes" do
-        expect(formatter).to receive(:ftl).with(uncommitted_changes_output)
+        expect(logger).to receive(:ftl).with(uncommitted_changes_output)
         expect { subject }.to raise_error SystemExit
       end
     end
@@ -359,7 +359,7 @@ describe GitVcsActions::Git do
         end
 
         it "writes a n explanation for holding changes" do
-          expect(formatter).to receive(:inf).with("Changes have been held from being pushed to the"\
+          expect(logger).to receive(:inf).with("Changes have been held from being pushed to the"\
                                                   " remote and need to be pushed manually")
           expect { subject }.to raise_error SystemExit
         end

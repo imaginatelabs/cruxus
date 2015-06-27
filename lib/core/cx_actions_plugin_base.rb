@@ -1,19 +1,19 @@
-require_relative "formatter"
+require_relative "logging_wrapper"
 require_relative "cxconf"
 
-# Base class to setup config and formatter
+# Base class to setup config and logger
 class CxActionsPluginBase
-  include Formatter
+  include LoggingWrapper
 
-  attr_reader :formatter, :options, :conf
+  attr_reader :logger, :options, :conf
 
-  def initialize(formatter, options = {}, conf = CxConf)
-    @formatter = formatter
+  def initialize(logger, options = {}, conf = CxConf)
+    @logger = logger
     @options = options
     @conf = conf
   end
 
-  def self.generate(formatter, options = {}, conf = CxConf)
-    new formatter, options, conf
+  def self.generate(logger, options = {}, conf = CxConf)
+    new logger, options, conf
   end
 end

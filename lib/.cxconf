@@ -1,8 +1,8 @@
 version: 1.0.0
 application: cruxus
 log:
-  formatter: plain
-  formatter_options: [plain,json]
+  logger: plain
+  logger_options: [plain,json]
   level: info
   level_options: [debug,info,warn,error,fatal]
   message_format: "#{msg}"

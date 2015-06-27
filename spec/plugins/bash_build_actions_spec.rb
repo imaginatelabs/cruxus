@@ -2,12 +2,12 @@ require "rspec"
 require_relative "../../lib/plugins/bash_build_actions"
 
 describe BashBuildActions::Bash do
-  let(:formatter) { true }
-  let(:bash) { BashBuildActions::Bash.new formatter, nil, nil }
+  let(:logger) { true }
+  let(:bash) { BashBuildActions::Bash.new logger, nil, nil }
 
   before do
-    allow(formatter).to receive(:inf)
-    allow(formatter).to receive(:err)
+    allow(logger).to receive(:inf)
+    allow(logger).to receive(:err)
   end
 
   describe "#cmd" do
@@ -23,12 +23,12 @@ describe BashBuildActions::Bash do
         expect(result.stderr).to eq(["Message1 to stderr", "Message2 to stderr"])
       end
 
-      it "writes to the formatter" do
+      it "writes to the logger" do
         subject
-        expect(formatter).to have_received(:inf).with("Message1 to stdout")
-        expect(formatter).to have_received(:inf).with("Message2 to stdout")
-        expect(formatter).to have_received(:err).with("Message1 to stderr")
-        expect(formatter).to have_received(:err).with("Message2 to stderr")
+        expect(logger).to have_received(:inf).with("Message1 to stdout")
+        expect(logger).to have_received(:inf).with("Message2 to stdout")
+        expect(logger).to have_received(:err).with("Message1 to stderr")
+        expect(logger).to have_received(:err).with("Message2 to stderr")
       end
     end
 

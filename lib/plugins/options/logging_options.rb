@@ -13,11 +13,12 @@ module LoggingOptions
                    banner: "/path/to/log/file.log|(blank=cruxus.log)",
                    group: "logging"
 
-      class_option :output_formatter,
+      # TODO: Overload this to be able to take a log format string
+      class_option :output_format,
                    desc: "File format for log output.",
                    aliases: "-O",
-                   default: CxConf.log.formatter,
-                   banner: CxConf.log.formatter_options.join("|"),
+                   default: CxConf.log.logger,
+                   banner: CxConf.log.logger_options.join("|"),
                    group: "logging"
 
       class_option :log_level,
