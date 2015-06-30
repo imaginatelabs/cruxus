@@ -23,6 +23,7 @@ module GitVcsActions
         inf "Creating feature branch '#{feature_name}'"
         @vcs.branch_locally(start_commit, feature_name)
       end
+      inf "Checking out feature branch '#{feature_name}'"
       @vcs.checkout feature_name
     end
 
@@ -41,6 +42,7 @@ module GitVcsActions
       inf "Submitting changes on '#{working_branch}' to "\
           "remote: '#{code_review_remote}' for code review"
       @vcs.push_force code_review_remote, working_branch
+      inf "Code review submitted to '#{code_review_remote}/#{working_branch}'"
     end
 
     def prepare_to_land_changes(message, main_branch, working_branch = @vcs.current_branch)

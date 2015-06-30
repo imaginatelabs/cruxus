@@ -59,7 +59,7 @@ module GitVcsClient
     end
 
     def continue_rebase
-      !`git rebase --continue`.include? "needs merge"
+      !git "rebase --continue".include? "needs merge"
     end
 
     def launch_merge_conflict_tool
@@ -88,16 +88,16 @@ module GitVcsClient
     end
 
     def reset_head(commit)
-      `git reset --keep #{commit}`
+      git "reset --keep #{commit}"
     end
 
     def merge_fast_forward_only(branch)
-      `git merge --ff-only #{branch}`
+      git "merge --ff-only #{branch}"
     end
 
     def squash_branch(number_of_commits, message)
-      `git reset --soft HEAD~#{number_of_commits}`
-      `git commit -m '#{message}'`
+      git "reset --soft HEAD~#{number_of_commits}"
+      git "commit -m '#{message}'"
     end
 
     def server_availability?(remote)

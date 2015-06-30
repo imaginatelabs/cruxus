@@ -6,7 +6,7 @@ module VersionCommand
     thor.class_eval do
       long_desc <<-LONGDESC
 
-        Prints the current version of Cruxus.
+Prints the current version of Cruxus.
 
       LONGDESC
 

@@ -7,12 +7,18 @@ module BuildCommand
     thor.class_eval do
       long_desc <<-LONGDESC
 
-        Run the build
+Run the build, configured in the project's .cxconf file
+with the property:
+
+|build:
+
+|  cmd: bundle exec rake
 
       LONGDESC
 
       descf "build", nil, "Run the build"
       def build
+        inf "\nBUILDING APPLICATION\n"
         bld.cmd CxConf.build.cmd
       end
     end
