@@ -1,10 +1,17 @@
 require_relative "../../plugins/clients/shell_client"
 require_relative "../../core/vcs_file"
+require_relative "../../../lib/core/logging_wrapper"
 
 module GitVcsClient
   # Wrapper around the git commands
+  # rubocop:disable Metrics/ClassLength
   class Git
+    include LoggingWrapper
     extend ShellClient
+
+    def initialize(logger)
+      @logger = logger
+    end
 
     def branch_locally(start_commit, branch_name)
       git "branch #{branch_name} #{start_commit}"
@@ -15,11 +22,12 @@ module GitVcsClient
     end
 
     def branch?(name)
-      git("branch").include? name
+      res = git("branch", log_level: :silent)
+      res.stdout.include?(name) || res.stdout.include?("* #{name}")
     end
 
     def current_branch
-      git "rev-parse --abbrev-ref HEAD"
+      git("rev-parse --abbrev-ref HEAD", log_level: :silent).stdout.first.strip
     end
 
     def fetch
@@ -27,15 +35,12 @@ module GitVcsClient
     end
 
     def uncommitted_changes
-      vcs_files = []
-      changes = git "status --porcelain"
-      changes.split("\n").each do |change|
-        vcs_files << VcsFile.new(
+      git("status --porcelain", log_level: :silent).stdout.map do |change|
+        VcsFile.new(
           File.absolute_path(change.split(" ")[1]),
           parse_status(change.slice(0..1))
         )
       end
-      vcs_files
     end
 
     def pull(remote, branch, remote_branch = nil)
@@ -47,27 +52,24 @@ module GitVcsClient
     end
 
     def diverged_count(base_branch = "master", commit = "HEAD")
-      git("rev-list #{base_branch}..#{commit} --count").to_i
+      git("rev-list #{base_branch}..#{commit} --count", log_level: :silent).stdout.first.to_i
     end
 
     def diverged_list(base_branch, commit)
-      git "log #{base_branch}..#{commit} --pretty=format:'- %h %s by %cN <%cE>'"
+      git("log #{base_branch}..#{commit} --pretty=format:'- %h %s by %cN <%cE>'",
+          log_level: :silent).stdout
     end
 
     def rebase_onto(branch = "master")
-      !(git("rebase #{branch}").include?("\nCONFLICT"))
+      !(git("rebase #{branch}").stderr.include?("\nCONFLICT"))
     end
 
     def continue_rebase
-      !git "rebase --continue".include? "needs merge"
+      !git("rebase --continue").stderr.include? "needs merge"
     end
 
     def launch_merge_conflict_tool
       Process.wait(spawn("git mergetool --no-prompt"))
-    end
-
-    def push(remote, branch, remote_branch = nil)
-      git "push #{remote} #{branch}:#{remote_branch || branch}"
     end
 
     def push(remote, branch, remote_branch = nil)
@@ -102,11 +104,22 @@ module GitVcsClient
 
     def server_availability?(remote)
       # TODO: Check for positive case instead
-      !git("ls-remote #{remote}").include? "fatal: unable to access"
+      !git("ls-remote #{remote}", log_level: :silent).stderr.include? "fatal: unable to access"
     end
 
-    def git(command)
-      `git #{command} 2>&1`.strip
+    def git(command, options = {})
+      git_command = "git #{command}"
+
+      case options[:log_level]
+      when :silent
+        run git_command
+      else
+        inf "Run: '#{git_command}'"
+        run git_command do | stdout, stderr, _thread|
+          inf "[git-out]: #{stdout}" if stdout
+          err "[git-err]: #{stderr}" if stderr
+        end
+      end
     end
 
     private
@@ -130,4 +143,5 @@ module GitVcsClient
     end
     # rubocop:enable Metrics/CyclomaticComplexity
   end
+  # rubocop:enable Metrics/ClassLength
 end

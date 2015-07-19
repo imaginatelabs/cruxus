@@ -13,7 +13,7 @@ module GitVcsActions
     end
 
     def self.generate(logger, options = {}, conf = CxConf)
-      new GitVcsClient::Git.new, logger,  options, conf
+      new GitVcsClient::Git.new(logger), logger,  options, conf
     end
 
     def start_new_feature(start_commit, feature_name)
@@ -29,6 +29,7 @@ module GitVcsActions
 
     def latest_changes(main_branch, working_branch = @vcs.current_branch, remote = @conf.vcs.remote)
       exit_when_server_unavailable remote, "Couldn't retrieve latest changes"
+      # TODO: Remove handle_uncommitted_changes when pull direct to branch is implemented
       handle_uncommitted_changes "Couldn't retrieve latest changes"
       update_branch main_branch, remote, working_branch
       diverged = @vcs.diverged? main_branch, working_branch
@@ -50,9 +51,10 @@ module GitVcsActions
       commit_count = @vcs.diverged_count main_branch, working_branch
       inf "Squashing #{commit_count} commits on branch '#{working_branch}'"
       # TODO: Open text editor to write commit message
-      @vcs.squash_branch commit_count, msg("Squashed the following #{commit_count} changes:\n"\
-                                           "#{@vcs.diverged_list main_branch, working_branch}",
-                                           message, "\n\n")
+      @vcs.squash_branch commit_count,
+                         msg("Squashed the following #{commit_count} changes:\n"\
+                             "#{@vcs.diverged_list(main_branch, working_branch).join("\n")}",
+                             message, "\n\n")
     end
 
     def land_changes(remote, main_branch, working_branch = @vcs.current_branch)
@@ -97,15 +99,16 @@ module GitVcsActions
       @vcs.fetch
       changes = @vcs.diverged_list main_branch, "#{remote_branch}"
       return if changes.empty?
+      # TODO: Implement pull direct to branch
       @vcs.checkout main_branch
-      inf "Pulling the following new commits from '#{main_branch}':\n#{changes}"
+      inf "Pulling the following new commits from '#{main_branch}':\n#{changes.join("\n")}"
       @vcs.pull remote, main_branch
       @vcs.checkout working_branch
     end
 
     def rebase_changes(main_branch, working_branch)
       changes = @vcs.diverged_list main_branch, working_branch
-      inf "Rebasing changes from '#{working_branch}' onto '#{main_branch}'\n#{changes}"
+      inf "Rebasing changes from '#{working_branch}' onto '#{main_branch}'\n#{changes.join("\n")}"
       rebase_success = @vcs.rebase_onto(main_branch)
       until rebase_success
         wrn "Launching merge tool so you can resolve conflicts"

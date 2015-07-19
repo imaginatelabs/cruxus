@@ -1,12 +1,15 @@
 require "rspec"
+require "ostruct"
 require_relative "../../lib/plugins/clients/git_vcs_client"
 
 describe GitVcsClient::Git do
-  let(:git) { GitVcsClient::Git.new }
+  let(:formatter) { nil }
+  let(:git) { GitVcsClient::Git.new formatter }
 
   describe "#uncommitted_changes" do
     before do
-      allow(git).to receive(:git).with("status --porcelain").and_return(uncommited_changes_list)
+      allow(git).to receive(:git).with("status --porcelain", log_level: :silent)
+        .and_return(uncommited_changes_list)
     end
 
     subject { git.uncommitted_changes }
@@ -14,10 +17,10 @@ describe GitVcsClient::Git do
     context "when there are uncommited changes" do
       context "when there are unstaged changes" do
         let(:uncommited_changes_list) do
-          "?? first.txt\n"\
-          " M foo.txt\n"\
-          " D shell_test.sh\n"\
-          " C untracked"
+          OpenStruct.new stdout: ["?? first.txt\n",
+                                  " M foo.txt\n",
+                                  " D shell_test.sh\n",
+                                  " C untracked"]
         end
 
         it "returns an array of vcs_change files" do
@@ -36,10 +39,10 @@ describe GitVcsClient::Git do
 
       context "when there are staged changes" do
         let(:uncommited_changes_list) do
-          "?? first.txt\n"\
-          "M  foo.txt\n"\
-          "D  shell_test.sh\n"\
-          "C  untracked"
+          OpenStruct.new stdout: ["?? first.txt\n",
+                                  "M  foo.txt\n",
+                                  "D  shell_test.sh\n",
+                                  "C  untracked"]
         end
 
         it "returns an array of vcs_change files" do
@@ -58,10 +61,10 @@ describe GitVcsClient::Git do
 
       context "when there a combination of staged and unstaged" do
         let(:uncommited_changes_list) do
-          "?? first.txt\n"\
-          "R  foo.txt\n"\
-          "MD shell_test.sh\n"\
-          " M untracked"
+          OpenStruct.new stdout: ["?? first.txt\n",
+                                  "R  foo.txt\n",
+                                  "MD shell_test.sh\n",
+                                  " M untracked"]
         end
 
         it "returns an array of vcs_change files" do
@@ -80,7 +83,7 @@ describe GitVcsClient::Git do
     end
 
     context "when there are no changes" do
-      let(:uncommited_changes_list) { "" }
+      let(:uncommited_changes_list) { OpenStruct.new stdout: [] }
 
       it "returns empty array" do
         expect(subject.size).to eq(0)

@@ -75,7 +75,7 @@ describe GitVcsActions::Git do
     let(:working_branch) { "fb" }
     let(:remote_branch) { "#{remote}/#{main_branch}" }
     let(:merge_result) { true }
-    let(:diverge_list_result) { "" }
+    let(:diverge_list_result) { [] }
     let(:server_availability) { true }
     let(:diverge_result) { false }
     let(:uncommitted_changes) { [] }
@@ -135,7 +135,7 @@ describe GitVcsActions::Git do
       end
 
       context "when the changes haven't already been fetched" do
-        let(:diverge_list_result) { "has content" }
+        let(:diverge_list_result) { ["has content"] }
 
         it "updates both the main branch and re-bases the working branch on top" do
           subject
@@ -241,9 +241,9 @@ describe GitVcsActions::Git do
       let(:uncommitted_changes) { [] }
       let(:diverged_count) { 3 }
       let(:diverged_list) do
-        "- 86fc61c gemfile by Foo Bar <foo.bar@cx.com>\n"\
-        "- 3b22538 rebase test by Foo Bar <foo.bar@cx.com>\n"\
-        "- 4168b56 Fifth commit by Foo Bar <foo.bar@cx.com>\n"
+        ["- 86fc61c gemfile by Foo Bar <foo.bar@cx.com>",
+         "- 3b22538 rebase test by Foo Bar <foo.bar@cx.com>",
+         "- 4168b56 Fifth commit by Foo Bar <foo.bar@cx.com>"]
       end
 
       before { subject }
@@ -260,7 +260,7 @@ describe GitVcsActions::Git do
                      "Squashed the following 3 changes:\n"\
                      "- 86fc61c gemfile by Foo Bar <foo.bar@cx.com>\n"\
                      "- 3b22538 rebase test by Foo Bar <foo.bar@cx.com>\n"\
-                     "- 4168b56 Fifth commit by Foo Bar <foo.bar@cx.com>\n")
+                     "- 4168b56 Fifth commit by Foo Bar <foo.bar@cx.com>")
         end
       end
 
@@ -270,7 +270,7 @@ describe GitVcsActions::Git do
             .with(3, "Squashed the following 3 changes:\n"\
                      "- 86fc61c gemfile by Foo Bar <foo.bar@cx.com>\n"\
                      "- 3b22538 rebase test by Foo Bar <foo.bar@cx.com>\n"\
-                     "- 4168b56 Fifth commit by Foo Bar <foo.bar@cx.com>\n")
+                     "- 4168b56 Fifth commit by Foo Bar <foo.bar@cx.com>")
         end
       end
     end
