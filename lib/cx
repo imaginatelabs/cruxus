@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
-require_relative "./cruxus"
+require_relative "./radial"
 
 extend Cx
 
-Cx::Cruxus.start(ARGV)
+Cx::Radial.start(ARGV)

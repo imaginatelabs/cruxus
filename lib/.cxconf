@@ -1,5 +1,5 @@
 version: 1.0.0
-application: cruxus
+application: radial
 log:
   logger: plain
   logger_options: [plain,json]
@@ -8,7 +8,7 @@ log:
   message_format: "#{msg}"
   file:
     message_format: "#{severity_id}, [#{datetime.iso8601}##{pid}] #{severity_label} -- #{plugin_name}: #{msg}"
-    path: "cruxus.log"
+    path: "radial.log"
 vcs: &vcs
   action: git
   remote: origin

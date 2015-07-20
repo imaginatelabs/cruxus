@@ -1,7 +1,7 @@
-cruxus
+radial
 ======
-[![Build Status](https://travis-ci.org/imaginatelabs/cruxus.svg?branch=master)](https://travis-ci.org/imaginatelabs/cruxus)
-[![Join the chat at https://gitter.im/imaginatelabs/cruxus](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/imaginatelabs/cruxus?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/imaginatelabs/radial.svg?branch=master)](https://travis-ci.org/imaginatelabs/radial)
+[![Join the chat at https://gitter.im/imaginatelabs/radial](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/imaginatelabs/radial?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Software to help you make software!
 
@@ -49,22 +49,22 @@ Utilise many of the great code review features in GitHub
 Create an increment release versions. 
  
 ### Got an idea?
-Share it on twitter [@ImaginateLabs](https://www.twitter.com/ImaginateLabs) #cruxus
+Share it on twitter [@ImaginateLabs](https://www.twitter.com/ImaginateLabs) #radial
  
  OR
   
-Come chat about it on our [Gitter channel](https://gitter.im/imaginatelabs/cruxus)
+Come chat about it on our [Gitter channel](https://gitter.im/imaginatelabs/radial)
 
 ## Setup
 1. Clone and checkout `stable` for the latest stable release version from this repository.
    Note: checkout `master` to get the latest changes
 2. You will need Ruby-2.1 and Bundler installed
 3. Run `bundle install` to get all the gems you need
-4. Add cruxus to your path e.g. 
-  `export PATH=$PATH:/path/to/cruxus/lib`
+4. Add radial to your path e.g. 
+  `export PATH=$PATH:/path/to/radial/lib`
 5. Run `cx` to test installation
 
-Note: Cruxus requires Ruby 2.1 if you're using rvm or chruby there's a ruby version in the repo that 
+Note: Radial requires Ruby 2.1 if you're using rvm or chruby there's a ruby version in the repo that 
 will automatically set Ruby to the right version for you!
 
 ## Configuration
@@ -79,8 +79,8 @@ build:
 ```
 
 ### Inherited Configuration
-Cruxus allows configuration inheritance so that you can customize configuration based on your preferences. 
-Below is the order in which the cruxus files inherit their configurations.
+Radial allows configuration inheritance so that you can customize configuration based on your preferences. 
+Below is the order in which the radial files inherit their configurations.
 ```
 $CX_HOME/.cxconf                           # Default configuration
 $SHARED_HOME/.cxconf                       # Inherits/Overwrites $CX_HOME/.cxconf
@@ -90,6 +90,6 @@ $WORKSPACE_HOME/sub/dirs/.cxconf           # Inherits/Overwrites $WORKSPACE_HOME
 ```
 
 ## Extending 
-Cruxus allows you to write extensions to suit your own work flow.
+Radial allows you to write extensions to suit your own work flow.
 
 Details coming soon!

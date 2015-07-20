@@ -12,7 +12,7 @@ module WiWorkflow
       invoke :help
       inf "If you think this would be a good idea, let us know by telling us on:\n"\
           " - Tell us on Twitter @ImaginateLabs\n"\
-          " - Come chat about it on our Gitter channel https://gitter.im/imaginatelabs/cruxus\n"
+          " - Come chat about it on our Gitter channel https://gitter.im/imaginatelabs/radial\n"
     end
 
     descf "new", "DESCRIPTION", "Create new work item"

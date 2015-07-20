@@ -27,7 +27,7 @@ describe LogHelper do
       let(:file) { "log_file" }
 
       it "returns the log file path form configuration" do
-        expect(subject).to eq("cruxus.log")
+        expect(subject).to eq("radial.log")
       end
     end
 

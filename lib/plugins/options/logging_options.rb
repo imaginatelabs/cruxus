@@ -10,7 +10,7 @@ module LoggingOptions
                    desc: "File output is logged to.",
                    aliases: "-F",
                    default: false,
-                   banner: "/path/to/log/file.log|(blank=cruxus.log)",
+                   banner: "/path/to/log/file.log|(blank=radial.log)",
                    group: "logging"
 
       # TODO: Overload this to be able to take a log format string

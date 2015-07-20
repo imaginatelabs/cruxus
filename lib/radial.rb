@@ -5,7 +5,7 @@ require_relative "core/loaders/workflow_loader"
 
 module Cx
   # Entry point to the application
-  class Cruxus < CxWorkflowPluginBase
+  class Radial < CxWorkflowPluginBase
     include OptionsLoader
     include CommandLoader
     include WorkflowLoader

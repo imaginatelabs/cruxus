@@ -18,7 +18,7 @@ let us know by telling us on:
 
 - Tell us on Twitter @ImaginateLabs
 
-- Come chat about it on our Gitter channel https://gitter.im/imaginatelabs/cruxus
+- Come chat about it on our Gitter channel https://gitter.im/imaginatelabs/radial
 
       LONGDESC
 

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cruxus (1.0.0)
+    radial (0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -67,11 +67,11 @@ PLATFORMS
 
 DEPENDENCIES
   confstruct
-  cruxus!
   env
   oga
   os
   pry-byebug
+  radial!
   rake
   rspec
   rspec_junit_formatter

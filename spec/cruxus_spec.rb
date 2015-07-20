@@ -1,23 +1,23 @@
 require "rspec"
 require_relative "helper"
-require_relative "../lib/cruxus"
+require_relative "../lib/radial"
 require_relative "../lib/plugins/bash_build_actions"
 require_relative "../lib/plugins/git_vcs_actions"
 
-describe Cx::Cruxus do
+describe Cx::Radial do
   include Helper
 
-  let(:cx) { Cx::Cruxus.new [], [], {} }
+  let(:cx) { Cx::Radial.new [], [], {} }
   let(:bld) { double(BashBuildActions) }
   let(:vcs) { double(GitVcsActions) }
 
   before do
-    allow_any_instance_of(Cx::Cruxus).to receive(:bld).and_return(bld)
-    allow_any_instance_of(Cx::Cruxus).to receive(:vcs).and_return(vcs)
+    allow_any_instance_of(Cx::Radial).to receive(:bld).and_return(bld)
+    allow_any_instance_of(Cx::Radial).to receive(:vcs).and_return(vcs)
   end
 
   describe "#cx" do
-    let(:output) { capture(:stdout) { Cx::Cruxus.start({}) } }
+    let(:output) { capture(:stdout) { Cx::Radial.start({}) } }
 
     subject { output }
 
