@@ -6,7 +6,7 @@ require_relative "../../lib/plugins/conf_workflow"
 describe ConfWorkflow::Conf do
   include Helper
 
-  let(:cx) { Cx::Radial.new }
+  let(:cx) { Radial::Radial.new }
 
   describe "#conf" do
     context "when no commands are specified" do

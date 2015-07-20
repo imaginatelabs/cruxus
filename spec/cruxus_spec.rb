@@ -4,20 +4,20 @@ require_relative "../lib/radial"
 require_relative "../lib/plugins/bash_build_actions"
 require_relative "../lib/plugins/git_vcs_actions"
 
-describe Cx::Radial do
+describe Radial::Radial do
   include Helper
 
-  let(:cx) { Cx::Radial.new [], [], {} }
+  let(:cx) { Radial::Radial.new [], [], {} }
   let(:bld) { double(BashBuildActions) }
   let(:vcs) { double(GitVcsActions) }
 
   before do
-    allow_any_instance_of(Cx::Radial).to receive(:bld).and_return(bld)
-    allow_any_instance_of(Cx::Radial).to receive(:vcs).and_return(vcs)
+    allow_any_instance_of(Radial::Radial).to receive(:bld).and_return(bld)
+    allow_any_instance_of(Radial::Radial).to receive(:vcs).and_return(vcs)
   end
 
   describe "#cx" do
-    let(:output) { capture(:stdout) { Cx::Radial.start({}) } }
+    let(:output) { capture(:stdout) { Radial::Radial.start({}) } }
 
     subject { output }
 

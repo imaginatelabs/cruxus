@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require_relative "./radial"
 
-extend Cx
+extend Radial
 
-Cx::Radial.start(ARGV)
+Radial::Radial.start(ARGV)
