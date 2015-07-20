@@ -6,7 +6,7 @@ require_relative "../../lib/plugins/conf_workflow"
 describe ConfWorkflow::Conf do
   include Helper
 
-  let(:cx) { Radial::Radial.new }
+  let(:rad) { Radial::Radial.new }
 
   describe "#conf" do
     context "when no commands are specified" do
@@ -15,7 +15,7 @@ describe ConfWorkflow::Conf do
       let(:select_command) { "conf select   [REGEX]" }
       let(:select_desc) { "# Returns keys and values matching the regex" }
 
-      let(:output) { capture(:stdout) { cx.conf } }
+      let(:output) { capture(:stdout) { rad.conf } }
 
       subject { output }
 

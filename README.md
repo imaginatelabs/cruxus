@@ -10,27 +10,27 @@ Software to help you make software!
 ### Start a new feature
 Starts a new feature by creating a feature branch.
 
-`cx feature my_new_feature`
+`rad feature my_new_feature`
 
 ### Get latest changes
 Gets the latest changes from your main branch and rebases the changes from your feature branch on top. 
 
-`cx latest`
+`rad latest`
 
 ### Code Review 
 Submit your feature branch for a code review.
 
-`cx review`
+`rad review`
 
 ### Land Changes
 Land your changes from your feature branch onto the main branch.
 
-`cx land`
+`rad land`
 
 ### Help
-Learn more about cx commands by using help
+Learn more about rad commands by using help
 
-`cx help`
+`rad help`
 
 ## Coming soon
 ### Working with Micro-Services
@@ -42,7 +42,7 @@ Manage groups of micro-services projects with the ability to do the following:
 
 ### GitHub Integration
 Utilise many of the great code review features in GitHub
- - Create a pull request with `cx reivew`
+ - Create a pull request with `rad reivew`
  - Use GitHub issues to create feature branches.
  
 ### Release
@@ -62,13 +62,13 @@ Come chat about it on our [Gitter channel](https://gitter.im/imaginatelabs/radia
 3. Run `bundle install` to get all the gems you need
 4. Add radial to your path e.g. 
   `export PATH=$PATH:/path/to/radial/lib`
-5. Run `cx` to test installation
+5. Run `rad` to test installation
 
 Note: Radial requires Ruby 2.1 if you're using rvm or chruby there's a ruby version in the repo that 
 will automatically set Ruby to the right version for you!
 
 ## Configuration
-Curxus can be configured by placing a ".cxconf" in the root of your project. 
+Curxus can be configured by placing a ".radconf" in the root of your project. 
 
 A basic git project using feature branching will only need to configure the following values. 
 ```
@@ -82,11 +82,11 @@ build:
 Radial allows configuration inheritance so that you can customize configuration based on your preferences. 
 Below is the order in which the radial files inherit their configurations.
 ```
-$CX_HOME/.cxconf                           # Default configuration
-$SHARED_HOME/.cxconf                       # Inherits/Overwrites $CX_HOME/.cxconf
-$USER_HOME/.cxconf                         # Inherits/Overwrites $SHARED_HOME/.cxconf
-$WORKSPACE_HOME/.cxconf                    # Inherits/Overwrites $USER_HOME/.cxconf
-$WORKSPACE_HOME/sub/dirs/.cxconf           # Inherits/Overwrites $WORKSPACE_HOME/.cxconf when run in the subdirectory
+$RADIAL_HOME/.radconf                           # Default configuration
+$SHARED_HOME/.radconf                       # Inherits/Overwrites $RADIAL_HOME/.radconf
+$USER_HOME/.radconf                         # Inherits/Overwrites $SHARED_HOME/.radconf
+$WORKSPACE_HOME/.radconf                    # Inherits/Overwrites $USER_HOME/.radconf
+$WORKSPACE_HOME/sub/dirs/.radconf           # Inherits/Overwrites $WORKSPACE_HOME/.radconf when run in the subdirectory
 ```
 
 ## Extending 

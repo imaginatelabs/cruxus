@@ -7,7 +7,7 @@ require_relative "../lib/plugins/git_vcs_actions"
 describe Radial::Radial do
   include Helper
 
-  let(:cx) { Radial::Radial.new [], [], {} }
+  let(:rad) { Radial::Radial.new [], [], {} }
   let(:bld) { double(BashBuildActions) }
   let(:vcs) { double(GitVcsActions) }
 
@@ -16,7 +16,7 @@ describe Radial::Radial do
     allow_any_instance_of(Radial::Radial).to receive(:vcs).and_return(vcs)
   end
 
-  describe "#cx" do
+  describe "#rad" do
     let(:output) { capture(:stdout) { Radial::Radial.start({}) } }
 
     subject { output }
@@ -30,7 +30,7 @@ describe Radial::Radial do
   end
 
   describe "#review" do
-    let(:output) { capture(:stdout) { cx.invoke(:review) } }
+    let(:output) { capture(:stdout) { rad.invoke(:review) } }
 
     before do
       allow(vcs).to receive(:latest_changes)
@@ -87,7 +87,7 @@ describe Radial::Radial do
   end
 
   describe "#land" do
-    let(:output) { capture(:stdout) { cx.invoke(:land) } }
+    let(:output) { capture(:stdout) { rad.invoke(:land) } }
 
     before do
       allow(vcs).to receive(:latest_changes)
