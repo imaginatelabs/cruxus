@@ -20,4 +20,4 @@ vcs_code_review: *vcs
 #   enabled
 build:
   action: bash
-  cmd: "echo 'Please configure your build with the property build.cmd in your project's .cxconf configuration file.'"
+  cmd: "echo 'Please configure your build with the property build.cmd in your project's .radial.yml configuration file.'"

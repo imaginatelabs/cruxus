@@ -6,7 +6,7 @@ require_relative "../plugin_file"
 
 # ConfDirHelper - Utility methods for managing configuration
 module ConfDirHelper
-  CONFIG_DIR = "cx"
+  CONFIG_DIR = "radial"
 
   def load_config_files(config_files)
     config = Confstruct::Configuration.new
@@ -25,7 +25,7 @@ module ConfDirHelper
     Dir.home
   end
 
-  def cx_dir
+  def radial_dir
     File.absolute_path(File.dirname(__FILE__) + "/../../")
   end
 
@@ -46,7 +46,7 @@ module ConfDirHelper
 
   def get_conf_paths(path = "")
     user = user_dir
-    (%W(#{cx_dir}/#{path}
+    (%W(#{radial_dir}/#{path}
         #{shared_dir}/#{CONFIG_DIR}/#{path}
         #{user}/#{CONFIG_DIR}/#{path}) << ascend_dir(working_dir, path, user))
       .flatten

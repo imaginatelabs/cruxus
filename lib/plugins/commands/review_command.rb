@@ -11,14 +11,14 @@ Creates and submits a code review on the current feature branch.
 
 The command executes the following steps before submitting the code review.
 
-  1. cx latest
+  1. rad latest
 
-  2. cx build
+  2. rad build
 
 By doing this review ensures that a feature branche stay up-to-date and builds before it's
 submitted for review.
 
-Currently this is a basic git code review process, in the future cx review will integrate
+Currently this is a basic git code review process, in the future rad review will integrate
 with GitHub and BitBucket to initiate and close pull requests.
 
 If you think integration with GitHub or BitBucket would be a good idea,
@@ -37,9 +37,9 @@ let us know by telling us on:
              aliases: "-r",
              default: Conf.vcs_code_review.remote
       def review
-        inf "RUNNING: cx latest"
+        inf "RUNNING: rad latest"
         invoke :latest
-        inf "\nRUNNING: cx build"
+        inf "\nRUNNING: rad build"
         invoke :build
         inf "\nSUBMIT CODE REVIEW\n"
         vcs.submit_code_review options[:remote]

@@ -27,7 +27,7 @@ module LogHelper
     proc do |severity, datetime, progname, msg|
       # Requiring time fixes a bug where not
       # all Time methods where available such
-      # as iso8601 used in the default .cxconf
+      # as iso8601 used in the default .radial.yml
       require 'time'
 
       pid = Process.pid

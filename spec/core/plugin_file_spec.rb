@@ -3,7 +3,7 @@ require "rspec"
 require "./lib/core/plugin_file"
 
 describe PluginFile do
-  let(:plugin_file) { PluginFile.new("/Users/user/cx/plugins/tests/my_plugin_test.rb", "test") }
+  let(:plugin_file) { PluginFile.new("/Users/user/radial/plugins/tests/my_plugin_test.rb", "test") }
 
   context "given a type and a valid file path" do
     describe ".instance_name" do
@@ -34,7 +34,7 @@ describe PluginFile do
       subject { plugin_file.absolute_path }
 
       it "returns the absolute path" do
-        expect(subject).to eq("/Users/user/cx/plugins/tests/my_plugin_test.rb")
+        expect(subject).to eq("/Users/user/radial/plugins/tests/my_plugin_test.rb")
       end
     end
 

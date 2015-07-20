@@ -49,7 +49,7 @@ describe Radial::Radial do
 
       it "runs a build" do
         expect(bld).to have_received(:cmd).with("echo 'Please configure your build with the "\
-                                                "property build.cmd in your project's .cxconf "\
+                                                "property build.cmd in your project's .radial.yml "\
                                                 "configuration file.'")
       end
 
@@ -107,7 +107,7 @@ describe Radial::Radial do
 
       it "runs a build" do
         expect(bld).to have_received(:cmd).with("echo 'Please configure your build with the "\
-                                                "property build.cmd in your project's .cxconf "\
+                                                "property build.cmd in your project's .radial.yml "\
                                                 "configuration file.'")
       end
 

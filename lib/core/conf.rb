@@ -16,7 +16,7 @@ class Conf < Configuration
   include ConfDirHelper
 
   def initialize
-    conf_files = get_conf_paths(".cxconf")
+    conf_files = get_conf_paths(".radial.yml")
     conf = load_config_files(conf_files)
     super(conf)
   end

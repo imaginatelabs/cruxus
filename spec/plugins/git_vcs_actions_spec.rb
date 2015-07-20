@@ -173,7 +173,7 @@ describe GitVcsActions::Git do
     subject { git_vcs_actions.submit_code_review "origin", "develop" }
 
     context "when there are uncommitted changes" do
-      it "exits cx without pushing" do
+      it "exits rad without pushing" do
         expect(git_vcs_client).to_not receive(:push_force)
         expect { subject }.to raise_error SystemExit
       end
@@ -224,7 +224,7 @@ describe GitVcsActions::Git do
     subject { git_vcs_actions.prepare_to_land_changes message, "master", "develop" }
 
     context "when there are uncommitted changes" do
-      it "exits cx without squahsing changes" do
+      it "exits rad without squahsing changes" do
         expect(git_vcs_client).to_not receive(:diverged_count)
         expect(git_vcs_client).to_not receive(:diverged_list)
         expect(git_vcs_client).to_not receive(:squash_branch)
@@ -241,9 +241,9 @@ describe GitVcsActions::Git do
       let(:uncommitted_changes) { [] }
       let(:diverged_count) { 3 }
       let(:diverged_list) do
-        ["- 86fc61c gemfile by Foo Bar <foo.bar@cx.com>",
-         "- 3b22538 rebase test by Foo Bar <foo.bar@cx.com>",
-         "- 4168b56 Fifth commit by Foo Bar <foo.bar@cx.com>"]
+        ["- 86fc61c gemfile by Foo Bar <foo.bar@imaginatelabs.com.com>",
+         "- 3b22538 rebase test by Foo Bar <foo.bar@imaginatelabs.com.com>",
+         "- 4168b56 Fifth commit by Foo Bar <foo.bar@imaginatelabs.com.com>"]
       end
 
       before { subject }
@@ -258,9 +258,9 @@ describe GitVcsActions::Git do
           expect(git_vcs_client).to have_received(:squash_branch)
             .with(3, "My typed commit message\n\n"\
                      "Squashed the following 3 changes:\n"\
-                     "- 86fc61c gemfile by Foo Bar <foo.bar@cx.com>\n"\
-                     "- 3b22538 rebase test by Foo Bar <foo.bar@cx.com>\n"\
-                     "- 4168b56 Fifth commit by Foo Bar <foo.bar@cx.com>")
+                     "- 86fc61c gemfile by Foo Bar <foo.bar@imaginatelabs.com.com>\n"\
+                     "- 3b22538 rebase test by Foo Bar <foo.bar@imaginatelabs.com.com>\n"\
+                     "- 4168b56 Fifth commit by Foo Bar <foo.bar@imaginatelabs.com.com>")
         end
       end
 
@@ -268,9 +268,9 @@ describe GitVcsActions::Git do
         it "squashes all the commits wit the default commit message" do
           expect(git_vcs_client).to have_received(:squash_branch)
             .with(3, "Squashed the following 3 changes:\n"\
-                     "- 86fc61c gemfile by Foo Bar <foo.bar@cx.com>\n"\
-                     "- 3b22538 rebase test by Foo Bar <foo.bar@cx.com>\n"\
-                     "- 4168b56 Fifth commit by Foo Bar <foo.bar@cx.com>")
+                     "- 86fc61c gemfile by Foo Bar <foo.bar@imaginatelabs.com.com>\n"\
+                     "- 3b22538 rebase test by Foo Bar <foo.bar@imaginatelabs.com.com>\n"\
+                     "- 4168b56 Fifth commit by Foo Bar <foo.bar@imaginatelabs.com.com>")
         end
       end
     end
@@ -301,7 +301,7 @@ describe GitVcsActions::Git do
 
     context "when there are uncommitted changes" do
       let(:server_availability) { true }
-      it "exits cx without pushing" do
+      it "exits rad without pushing" do
         expect(git_vcs_client).to_not receive(:checkout)
         expect(git_vcs_client).to_not receive(:merge_fast_forward_only)
         expect(git_vcs_client).to_not receive(:push)

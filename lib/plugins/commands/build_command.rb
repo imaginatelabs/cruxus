@@ -7,7 +7,7 @@ module BuildCommand
     thor.class_eval do
       long_desc <<-LONGDESC
 
-Run the build, configured in the project's .cxconf file
+Run the build, configured in the project's .radial.yml file
 with the property:
 
 |build:

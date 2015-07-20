@@ -1,8 +1,8 @@
 require "rspec"
 require_relative "../../../lib/core/helpers/conf_dir_helper"
 
-describe ".cxconf" do
-  let(:conf) { ConfDirHelper.load_config_files ["lib/.cxconf"] }
+describe ".radial.yml" do
+  let(:conf) { ConfDirHelper.load_config_files ["lib/.radial.yml"] }
 
   subject { conf }
 
@@ -12,8 +12,9 @@ describe ".cxconf" do
     end
 
     it "has a default build command" do
-      expect(subject.build.cmd).to eq("echo 'Please configure your build with the property "\
-                                      "build.cmd in your project's .cxconf configuration file.'")
+      expect(subject.build.cmd).to eq("echo 'Please configure your build with the "\
+                                      "property build.cmd in your project's .radial.yml "\
+                                      "configuration file.'")
     end
 
     it "has the same variables for vcs and vcs_code_review" do

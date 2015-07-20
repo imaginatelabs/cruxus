@@ -5,7 +5,7 @@ require_relative "conf_dir_helper"
 # Utility to manage various directory functions
 module FileHelper
   def temp_dir(folder = SecureRandom.uuid)
-    path = "/tmp/cx/#{folder}"
+    path = "/tmp/radial/#{folder}"
     FileUtils.mkdir_p path
     path
   end

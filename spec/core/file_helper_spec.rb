@@ -14,7 +14,7 @@ describe FileHelper do
       subject { file_helper.temp_dir }
 
       it "returns a temp directory with uuid" do
-        is_expected.to eq("/tmp/cx/61a5ad24-9f70-4693-bc59-76333de04bbb")
+        is_expected.to eq("/tmp/radial/61a5ad24-9f70-4693-bc59-76333de04bbb")
       end
     end
 
@@ -22,7 +22,7 @@ describe FileHelper do
       subject { file_helper.temp_dir "foo" }
 
       it "returns a temp directory with the given folder" do
-        is_expected.to eq("/tmp/cx/foo")
+        is_expected.to eq("/tmp/radial/foo")
       end
     end
   end

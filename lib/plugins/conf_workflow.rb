@@ -6,7 +6,7 @@ module ConfWorkflow
   # Workflow for accessing configuration values from the command line
   ##
   class Conf < WorkflowPluginBase
-    help_desc "Manage CX configuration"
+    help_desc "Manage Radial configuration"
 
     def initialize(args = [], options = {}, config = {})
       super(args, options, config)
