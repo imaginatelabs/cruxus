@@ -1,10 +1,10 @@
-require_relative "../core/cx_actions_plugin_base"
+require_relative "../core/actions_plugin_base"
 require_relative "../core/cxconf"
 require_relative "clients/shell_client"
 
 module BashBuildActions
   # Run build commands from bash
-  class Bash < CxActionsPluginBase
+  class Bash < ActionsPluginBase
     extend ShellClient
 
     def cmd(bash_cmd)

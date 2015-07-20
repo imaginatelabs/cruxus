@@ -2,7 +2,7 @@ require_relative "logging_wrapper"
 require_relative "cxconf"
 
 # Base class to setup config and logger
-class CxActionsPluginBase
+class ActionsPluginBase
   include LoggingWrapper
 
   attr_reader :logger, :options, :conf
