@@ -35,7 +35,7 @@ let us know by telling us on:
       option :remote,
              desc: "Remote server to submit code review",
              aliases: "-r",
-             default: CxConf.vcs_code_review.remote
+             default: Conf.vcs_code_review.remote
       def review
         inf "RUNNING: cx latest"
         invoke :latest

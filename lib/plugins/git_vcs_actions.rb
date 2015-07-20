@@ -7,12 +7,12 @@ module GitVcsActions
   class Git < ActionsPluginBase
     include StringHelper
 
-    def initialize(vcs, logger, options = {}, conf = CxConf)
+    def initialize(vcs, logger, options = {}, conf = Conf)
       super(logger, options, conf)
       @vcs = vcs
     end
 
-    def self.generate(logger, options = {}, conf = CxConf)
+    def self.generate(logger, options = {}, conf = Conf)
       new GitVcsClient::Git.new(logger), logger,  options, conf
     end
 

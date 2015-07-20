@@ -44,7 +44,7 @@ module ConfDirHelper
     dirs.reverse
   end
 
-  def get_cxconf_paths(path = "")
+  def get_conf_paths(path = "")
     user = user_dir
     (%W(#{cx_dir}/#{path}
         #{shared_dir}/#{CONFIG_DIR}/#{path}

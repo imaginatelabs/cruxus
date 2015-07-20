@@ -7,7 +7,7 @@ module LandCommand
     thor.class_eval do
       long_desc <<-LONGDESC
 
-Squashes and lands feature branch onto '#{CxConf.vcs.main_branch}'
+Squashes and lands feature branch onto '#{Conf.vcs.main_branch}'
 
 The command executes the following steps before landing the changes
 
@@ -25,24 +25,24 @@ all commits on a feature branch should be considered 'work in progress'.
 
       descf "land",
             "[COMMIT_MESSAGE] [-rh]",
-            "Squashes and lands feature branch onto '#{CxConf.vcs.main_branch}'"
+            "Squashes and lands feature branch onto '#{Conf.vcs.main_branch}'"
       option :remote,
              desc: "Remote server to land changes",
              aliases: "-r",
-             default: CxConf.vcs.remote
+             default: Conf.vcs.remote
       option :hold,
              desc: "Hold from pushing changes to the remote",
              aliases: "-h",
-             default: CxConf.vcs.push_hold
+             default: Conf.vcs.push_hold
       def land(message = nil)
         inf "RUNNING: cx latest"
         invoke :latest, [], {}
         inf "\nRUNNING: cx build"
         invoke :build, [], {}
         inf "\nPREPARING CHANGES TO LAND\n"
-        vcs.prepare_to_land_changes message, CxConf.vcs.main_branch
+        vcs.prepare_to_land_changes message, Conf.vcs.main_branch
         inf "\nLANDING CHANGES\n"
-        vcs.land_changes options[:remote], CxConf.vcs.main_branch
+        vcs.land_changes options[:remote], Conf.vcs.main_branch
       end
     end
   end

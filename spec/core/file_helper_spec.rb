@@ -31,7 +31,7 @@ describe FileHelper do
     let(:conf_dir_helper) { ConfDirHelper }
 
     before do
-      allow(ConfDirHelper).to receive(:get_cxconf_paths)
+      allow(ConfDirHelper).to receive(:get_conf_paths)
         .with("plugins/")
         .and_return(%W(#{File.dirname(__FILE__)}/plugins/))
     end

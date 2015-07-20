@@ -15,7 +15,7 @@ Prints the current version of Radial.
       map "-v" => "version",
           "--version" => "version"
       def version
-        inf(CxConf.version)
+        inf(Conf.version)
       end
     end
   end

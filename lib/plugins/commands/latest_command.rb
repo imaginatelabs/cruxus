@@ -15,7 +15,7 @@ The current feature branch will be rebased on top of any changes found on the ma
 
       descf "latest", "[MAIN_BRANCH]",
             "Pull changes from the main branch into current branch"
-      def latest(main_branch = CxConf.vcs.main_branch)
+      def latest(main_branch = Conf.vcs.main_branch)
         inf "\nGETTING LATEST CHANGES\n"
         vcs.latest_changes main_branch
       end

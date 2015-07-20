@@ -4,7 +4,7 @@ require_relative "../helpers/string_helper"
 # Manages the detection of plugins
 module PluginLoader
   # rubocop:disable all
-  def load_plugin(name, type, logger, options = {}, conf = CxConf)
+  def load_plugin(name, type, logger, options = {}, conf = Conf)
     plugin_file = find_plugin_file name, type
     return nil unless plugin_file
     require plugin_file.absolute_path

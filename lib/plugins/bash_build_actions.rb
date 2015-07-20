@@ -1,5 +1,5 @@
 require_relative "../core/actions_plugin_base"
-require_relative "../core/cxconf"
+require_relative "../core/conf"
 require_relative "clients/shell_client"
 
 module BashBuildActions

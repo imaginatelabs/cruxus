@@ -1,14 +1,14 @@
-require_relative "../cxconf"
+require_relative "../conf"
 require_relative "../loaders/plugin_loader"
 
 # Helper for setting up logging
 module LogHelper
-  def log_file_path(file_path, conf = CxConf)
+  def log_file_path(file_path, conf = Conf)
     return false if !file_path || file_path.nil?
     file_path == "log_file" ? conf.log.file.path : file_path
   end
 
-  def parse_log_level(level, conf = CxConf)
+  def parse_log_level(level, conf = Conf)
     level_options = conf.log.level_options
     matched_level = level_options.select { |l| l.upcase.start_with? level.upcase }.first
     parsed_level = matched_level || level_options[1]
@@ -17,7 +17,7 @@ module LogHelper
     # rubocop:enable all
   end
 
-  def output_format(log_file, conf = CxConf)
+  def output_format(log_file, conf = Conf)
     log_file ? conf.log.file.message_format : conf.log.message_format
   end
 

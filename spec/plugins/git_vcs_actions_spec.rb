@@ -1,13 +1,13 @@
 require "rspec"
 require_relative "../../lib/plugins/git_vcs_actions"
 require_relative "../../lib/plugins/clients/git_vcs_client"
-require_relative "../../lib/core/cxconf"
+require_relative "../../lib/core/conf"
 
 describe GitVcsActions::Git do
   let(:git_vcs_actions) { GitVcsActions::Git.generate(logger, options, conf) }
   let(:logger) { true }
   let(:options) { {} }
-  let(:conf) { CxConf }
+  let(:conf) { Conf }
   let(:git_vcs_client) { true }
   let(:uncommitted_changes) do
     [

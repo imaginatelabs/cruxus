@@ -1,5 +1,5 @@
 require "thor"
-require_relative "../../core/cxconf"
+require_relative "../../core/conf"
 
 # Specify options for logging
 # rubocop:disable Metrics/MethodLength
@@ -17,15 +17,15 @@ module LoggingOptions
       class_option :output_format,
                    desc: "File format for log output.",
                    aliases: "-O",
-                   default: CxConf.log.logger,
-                   banner: CxConf.log.logger_options.join("|"),
+                   default: Conf.log.logger,
+                   banner: Conf.log.logger_options.join("|"),
                    group: "logging"
 
       class_option :log_level,
                    desc: "Level at which output is displayed.",
                    aliases: "-L",
-                   default: CxConf.log.level,
-                   banner: CxConf.log.level_options.join("|"),
+                   default: Conf.log.level,
+                   banner: Conf.log.level_options.join("|"),
                    group: "logging"
     end
   end

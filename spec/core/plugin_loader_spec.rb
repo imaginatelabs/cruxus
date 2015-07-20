@@ -6,7 +6,7 @@ describe PluginLoader do
 
   context "plugin methods" do
     before do
-      allow(ConfDirHelper).to receive(:get_cxconf_paths)
+      allow(ConfDirHelper).to receive(:get_conf_paths)
         .with("plugins/")
         .and_return(%W(#{File.dirname(__FILE__)}/plugins/))
     end

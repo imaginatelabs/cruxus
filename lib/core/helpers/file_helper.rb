@@ -12,7 +12,7 @@ module FileHelper
 
   def files(dirname, glob = "**/*")
     files = []
-    ConfDirHelper.get_cxconf_paths(dirname).each do |dir|
+    ConfDirHelper.get_conf_paths(dirname).each do |dir|
       find = "#{dir}#{glob}"
       files << Dir.glob(find).select { |f| File.file?(f) } if Dir.exist?(dir)
     end

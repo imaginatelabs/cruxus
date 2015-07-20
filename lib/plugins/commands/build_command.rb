@@ -19,7 +19,7 @@ with the property:
       descf "build", nil, "Run the build"
       def build
         inf "\nBUILDING APPLICATION\n"
-        bld.cmd CxConf.build.cmd
+        bld.cmd Conf.build.cmd
       end
     end
   end

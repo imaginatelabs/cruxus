@@ -8,10 +8,10 @@ describe ConfDirHelper do
   describe "#load_config_files" do
     context "when multiple configuration files are loaded" do
       it "overrides duplicate values" do
-        cxconf = subject.load_config_files(%w(spec/core/conf/.cxconf1
-                                              spec/core/conf/.cxconf2))
-        expect(cxconf.my_value_override).to eq("my value override")
-        expect(cxconf.my_value_no_override).to eq("my value no override")
+        conf = subject.load_config_files(%w(spec/core/conf/.cxconf1
+                                            spec/core/conf/.cxconf2))
+        expect(conf.my_value_override).to eq("my value override")
+        expect(conf.my_value_no_override).to eq("my value no override")
       end
     end
 
@@ -23,7 +23,7 @@ describe ConfDirHelper do
     end
   end
 
-  describe "#get_cxconf_paths" do
+  describe "#get_conf_paths" do
     before do
       allow(conf_dir_helper).to receive(:cx_dir).and_return("/usr/bin/cx")
       allow(conf_dir_helper).to receive(:shared_dir).and_return("/etc")
@@ -32,7 +32,7 @@ describe ConfDirHelper do
     end
 
     context "when paths exist or not on the system" do
-      subject { conf_dir_helper.get_cxconf_paths }
+      subject { conf_dir_helper.get_conf_paths }
 
       it "loads paths for configuration order" do
         expect(subject).to match_array(
@@ -46,7 +46,7 @@ describe ConfDirHelper do
     end
 
     context "when passing in an extension path" do
-      subject { conf_dir_helper.get_cxconf_paths(".cxconf") }
+      subject { conf_dir_helper.get_conf_paths(".cxconf") }
 
       it "appended the extension path to the base path" do
         expect(subject).to match_array(

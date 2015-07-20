@@ -1,5 +1,5 @@
 require "thor"
-require_relative "cxconf"
+require_relative "conf"
 require_relative "logging_wrapper"
 require_relative "helpers/log_helper"
 
@@ -46,13 +46,13 @@ class WorkflowPluginBase < Thor
   no_commands do
     extend LoggingWrapper
     def vcs
-      @vcs ||= PluginLoader.load_plugin CxConf.vcs.action, "vcs_actions",
-                                        @logger, options, CxConf
+      @vcs ||= PluginLoader.load_plugin Conf.vcs.action, "vcs_actions",
+                                        @logger, options, Conf
     end
 
     def bld
-      @build ||= PluginLoader.load_plugin CxConf.build.action, "build_actions",
-                                          @logger, options, CxConf
+      @build ||= PluginLoader.load_plugin Conf.build.action, "build_actions",
+                                          @logger, options, Conf
     end
   end
 end
