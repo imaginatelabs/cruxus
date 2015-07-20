@@ -4,7 +4,7 @@ require_relative "logging_wrapper"
 require_relative "helpers/log_helper"
 
 # Base class for all workflow plugins
-class CxWorkflowPluginBase < Thor
+class WorkflowPluginBase < Thor
   def initialize(args = [], options = {}, config = {})
     super(args, options, config)
     @logger = LogHelper.load_logger(self.class.name, @options)

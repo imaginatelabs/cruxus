@@ -1,8 +1,8 @@
-require_relative "../core/cx_workflow_plugin_base"
+require_relative "../core/workflow_plugin_base"
 
 module WiWorkflow
   # WIP
-  class Wi < CxWorkflowPluginBase
+  class Wi < WorkflowPluginBase
     help_desc "EXPERIMENTAL! - Manage Issues and Work Items"
 
     default_command :feedback
