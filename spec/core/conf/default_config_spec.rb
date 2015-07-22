@@ -7,8 +7,8 @@ describe ".radial.yml" do
   subject { conf }
 
   context "given the default config" do
-    it "has the version 1.0.0" do
-      expect(subject.version).to eq("1.0.0")
+    it "has the version 0.1.1" do
+      expect(subject.version).to eq("0.1.1")
     end
 
     it "has a default build command" do
